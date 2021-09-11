@@ -1,0 +1,35 @@
+---
+title: "Marketing Data"
+output: html_notebook
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+knitr::opts_chunk$set(cache = TRUE, warning = TRUE, message = FALSE,
+                     echo = TRUE, dpi = 180, fig.width = 8, fig.height = 5)
+library(tidyverse)
+library(silgelib)
+theme_set(theme_plex())
+```
+
+# Data Marketing Analysis from Kaggle
+
+Let's analyze the marketing data set provided by an user of Kaggle.
+
+```{r}
+setwd("C:/Users/Daniel Gutierrez/Desktop/R Practice/Marketing Data Kaggle")
+marketing_data <- readr::read_csv("marketing_data.csv")
+```
+Simple summary statistics of the data sets to see what variables we have
+```{r}
+summary(marketing_data)
+str(marketing_data)
+```
+Note that we have a variable, "year_birth", for the costumers which probably is hard to interpret in a model. We would have to build an age variable. Also, note that the income variable is a string variable. It includes the dollar symbol, "$", before the yearly income. Dt_Customer is a supposed to be a date. 
+
+We have to transform the income variable into a numerical variable. Marital status, education, accepted* and response  as factors. Maybe country as a factor too. Also an age variable: year of birth - 2021. 
+
+```{r}
+
+```
+
