@@ -10,10 +10,13 @@ knitr::opts_chunk$set(cache = TRUE, warning = TRUE, message = FALSE,
 library(tidyverse)
 library(silgelib)
 library(mice)
+library(gridExtra)
 theme_set(theme_bw())
 ```
 
 # Data Marketing Analysis from Kaggle
+
+## Section 01: Exploratory Data Analysis
 
 Let's analyze the marketing data set provided by an user of Kaggle.
 
@@ -28,10 +31,39 @@ summary(marketing_data)
 ```{r}
 str(marketing_data)
 ```
+ID: Customer's unique identifier
+Year_Birth: Customer's birth year
+Education: Customer's education level
+Marital_Status: Customer's marital status
+Income: Customer's yearly household income
+Kidhome: Number of children in customer's household
+Teenhome: Number of teenagers in customer's household
+Dt_Customer: Date of customer's enrollment with the company
+Recency: Number of days since customer's last purchase
+MntWines: Amount spent on wine in the last 2 years
+MntFruits: Amount spent on wine in the last 2 years
+MntMeatProducts: Amount spent on meat in the last 2 years
+MntFishProducts: Amount spent on fish in the last 2 years
+MntSweetProducts: Amount spent on sweets in the last 2 years
+MntGoldProds: Amount spent on gold in the last 2 years
+NumDealsPurchase: Number of purchases made with a discount
+NumWebPurchases: Number of purchases made through the company's web site
+NumCatalogPurchases: Number of purchases made using a catalogue
+NumStorePurchases: Number of purchases made directly in stores
+NumWebVisitsMonth: Number of visits to company's web site in the last month
+AcceptedCmp3: 1 if customer accepted the offer in the 3rd campaign, 0 otherwise
+AcceptedCmp4: 1 if customer accepted the offer in the 4th campaign, 0 otherwise
+AcceptedCmp5: 1 if customer accepted the offer in the 5th campaign, 0 otherwise
+AcceptedCmp1: 1 if customer accepted the offer in the 1st campaign, 0 otherwise
+AcceptedCmp2: 1 if customer accepted the offer in the 2nd campaign, 0 otherwise
+Response: 1 if customer accepted the offer in the last campaign, 0 otherwise
+Complain: 1 if customer complained in the last 2 years, 0 otherwise
+Country: Customer's location
+
 
 Note that we have a variable, "year_birth", for the costumers which probably is hard to interpret in a model. We would have to build an age variable. Also, note that the income variable is a string variable. It includes the dollar symbol, "$", before the yearly income. Dt_Customer is a supposed to be a date. 
 
-We have to transform the income variable into a numerical variable. Marital status, education, accepted* and response  as factors. Maybe country as a factor too. Also an age variable: year of birth - 2021. 
+We have to transform the income variable into a numerical variable. Marital status, education, accepted* and response  as factors. Maybe country as a factor too. Also an age variable: 2021 - year_birth. 
 
 ```{r}
 marketing <- marketing_data %>% 
@@ -40,6 +72,12 @@ marketing <- marketing_data %>%
          Education = as.factor(Education),
          Marital_Status = as.factor(Marital_Status),
          Country = as.factor(Country),
+         AcceptedCmp1 = as.factor(AcceptedCmp1),
+         AcceptedCmp2 = as.factor(AcceptedCmp2),
+         AcceptedCmp3 = as.factor(AcceptedCmp3),
+         AcceptedCmp4 = as.factor(AcceptedCmp4),
+         AcceptedCmp5 = as.factor(AcceptedCmp5),
+         Response = as.factor(Response),
          Age = 2021 - Year_Birth)
 marketing
 ```
@@ -107,4 +145,76 @@ marketing_ready %>%
 
 ```
 
-Both variables look better now. 
+Both variables look better now. Now lets look at the distribution of the remaining continous variables and categorical variables. 
+```{r}
+hist_wines <- marketing_ready %>% 
+  ggplot(aes(MntWines))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Wine Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_fruits <- marketing_ready %>% 
+  ggplot(aes(MntFruits))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Fruits Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_MeatProducts <- marketing_ready %>% 
+  ggplot(aes(MntMeatProducts))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Meat Products Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_FishProducts <- marketing_ready %>% 
+  ggplot(aes(MntFishProducts))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Fish Products Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_SweetProducts <- marketing_ready %>% 
+  ggplot(aes(MntSweetProducts))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Sweet Products Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_GoldProds <- marketing_ready %>% 
+  ggplot(aes(MntGoldProds))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Gold Products Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+grid.arrange(hist_wines, hist_fruits, hist_MeatProducts, hist_FishProducts,
+             hist_SweetProducts, hist_GoldProds, ncol=3)
+
+```
+There are a lot of zeros for the distribution of the amount spend on each of the products. A few outliers in the expenditure behavior of the costumers. For example, the meat products histogram shows a point at the right of the distribution with more than 1,500 USD spent in the last two years. The sweet products histogram shows a similar behavior. The gold products are more sold, they have at least higher number of observations with one dollar spent.
+
+```{r}
+par(mfrow = c(3,3))
+plot(marketing_ready$Education, main = "Education")
+plot(marketing_ready$Marital_Status, main = "Marital Status")
+plot(marketing_ready$Country, main = "Country")
+plot(marketing_ready$AcceptedCmp1, main = "Offer 1st Campaign Success")
+plot(marketing_ready$AcceptedCmp2, main = "Offer 2nd Campaign Success")
+plot(marketing_ready$AcceptedCmp3, main = "Offer 3rd Campaign Success")
+plot(marketing_ready$AcceptedCmp4, main = "Offer 4th Campaign Success")
+plot(marketing_ready$AcceptedCmp1, main = "Offer 5th Campaign Success")
+plot(marketing_ready$Response, main = "Last offer Success")
+```
+```{r}
+table(marketing_ready$Marital_Status)
+```
+Probably would make sense to merge Alone with the Single category and drop "Absurd" and "YOLO". 
+
+```{r}
+marketing_ready$Marital_Status <- as.factor(ifelse(as.character(marketing_ready$Marital_Status) == "Alone", "Single",as.character(marketing_ready$Marital_Status)))
+table(marketing_ready$Marital_Status)
+```
+```{r}
+marketing_ready <- marketing_ready %>% 
+  filter(Marital_Status != "Absurd" & Marital_Status != "YOLO") %>% 
+  mutate(Marital_Status = factor(Marital_Status))
+summary(marketing_ready)
+```
+### Section 02: Statistical Analysis
+
