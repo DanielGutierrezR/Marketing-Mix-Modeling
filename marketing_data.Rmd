@@ -9,7 +9,8 @@ knitr::opts_chunk$set(cache = TRUE, warning = TRUE, message = FALSE,
                      echo = TRUE, dpi = 180, fig.width = 8, fig.height = 5)
 library(tidyverse)
 library(silgelib)
-theme_set(theme_plex())
+library(mice)
+theme_set(theme_bw())
 ```
 
 # Data Marketing Analysis from Kaggle
@@ -23,13 +24,87 @@ marketing_data <- readr::read_csv("marketing_data.csv")
 Simple summary statistics of the data sets to see what variables we have
 ```{r}
 summary(marketing_data)
+```
+```{r}
 str(marketing_data)
 ```
+
 Note that we have a variable, "year_birth", for the costumers which probably is hard to interpret in a model. We would have to build an age variable. Also, note that the income variable is a string variable. It includes the dollar symbol, "$", before the yearly income. Dt_Customer is a supposed to be a date. 
 
 We have to transform the income variable into a numerical variable. Marital status, education, accepted* and response  as factors. Maybe country as a factor too. Also an age variable: year of birth - 2021. 
 
 ```{r}
+marketing <- marketing_data %>% 
+  mutate(Income = as.numeric(gsub("[^0-9.-]", "",Income)),
+         Dt_Customer = as.Date(Dt_Customer, "%m/%d/%y"),
+         Education = as.factor(Education),
+         Marital_Status = as.factor(Marital_Status),
+         Country = as.factor(Country),
+         Age = 2021 - Year_Birth)
+marketing
+```
+The raw the data set now looks better. But there are some NA's. Let's investigate them.
+```{r}
+summary(marketing)
+```
+There are 24 NA's for the income variable. We could substitute them by the mean of the income depending on their education. We could also delete them. Let's try both approaches and compare the results.
+```{r}
+marketing_imp <- marketing %>% 
+  group_by(Education) %>% 
+  mutate(Income = ifelse(is.na(Income), mean(Income, na.rm = TRUE), Income))
+summary(marketing_imp)
+```
+No more NA's. Now we can start an uni-variate analysis to check for implausible values and outliers. Age and income are already causing me suspicious. Maximum value of Age is 128 years old with a mean of 52 and a 75% quantile of 62, probably this person of 128 is an outlier or just a mistake when writing the dataset. For income the maximum value is \$666,666 per year, with a mean of \$52,254 and 75% of the participants earn less than \$68,290. The maximum value is about 10 times higher. The number itself its already suspicious as it is a sequence of six sixes. It is very likely that this is not a real person. But we analyze it.
+```{r}
+hist_age <- marketing_imp %>% 
+  ggplot(aes(Age))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Age Histogram")+
+  ylab(NULL)
+hist_age
+```
+
+
+```{r}
+sum(marketing_imp$Age > 100)
+```
+Three participants older than 100 years old. Since this is a digital commerce, I will drop these observations. It is unlikely that the people in this age buy online. 
+
+```{r}
+hist_income <- marketing_imp %>% 
+  ggplot(aes(Income))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Income Histogram")+
+  ylab(NULL)
+require(scales)
+hist_income + scale_x_continuous(labels = comma)
+```
+```{r}
+sum(marketing_imp$Income > 100000 )
+```
+There are 13 participants that earn more than $100,000 dollars per year. I will also drop these observations as they might induce noise to the analyses.
+
+```{r}
+marketing_ready <- marketing_imp %>% 
+  filter(Income < 100000 & Age < 100)
+summary(marketing_ready)
+```
+```{r}
+marketing_ready %>% 
+  ggplot(aes(Age))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Age Histogram")+
+  ylab(NULL)
+```
+
+
+```{r}
+marketing_ready %>% 
+  ggplot(aes(Income))+
+  geom_histogram(bins = 50, fill = "#24B0B7", alpha = 0.8)+
+  labs(title = "Income Histogram")+
+  ylab(NULL) + scale_x_continuous(labels = comma)
 
 ```
 
+Both variables look better now. 
