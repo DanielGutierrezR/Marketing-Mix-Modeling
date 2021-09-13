@@ -216,5 +216,18 @@ marketing_ready <- marketing_ready %>%
   mutate(Marital_Status = factor(Marital_Status))
 summary(marketing_ready)
 ```
+We could also create a variable for total purchases in the last two years
+```{r}
+marketing_ready <- marketing_ready %>% 
+  mutate(total_purch = MntWines + MntFruits + MntMeatProducts + MntFishProducts + MntSweetProducts + MntGoldProds)
+marketing_ready %>% 
+  ggplot(aes(total_purch)) +
+  geom_histogram()
+```
+```{r}
+summary(marketing_ready)
+```
+
+
 ### Section 02: Statistical Analysis
 
