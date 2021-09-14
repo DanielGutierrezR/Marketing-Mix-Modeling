@@ -377,7 +377,34 @@ marketing_data &lt;- readr::read_csv(&quot;marketing_data.csv&quot;)</code></pre
 ##   ..   Country = col_character()
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
-<p>ID: Customer’s unique identifier Year_Birth: Customer’s birth year Education: Customer’s education level Marital_Status: Customer’s marital status Income: Customer’s yearly household income Kidhome: Number of children in customer’s household Teenhome: Number of teenagers in customer’s household Dt_Customer: Date of customer’s enrollment with the company Recency: Number of days since customer’s last purchase MntWines: Amount spent on wine in the last 2 years MntFruits: Amount spent on wine in the last 2 years MntMeatProducts: Amount spent on meat in the last 2 years MntFishProducts: Amount spent on fish in the last 2 years MntSweetProducts: Amount spent on sweets in the last 2 years MntGoldProds: Amount spent on gold in the last 2 years NumDealsPurchase: Number of purchases made with a discount NumWebPurchases: Number of purchases made through the company’s web site NumCatalogPurchases: Number of purchases made using a catalogue NumStorePurchases: Number of purchases made directly in stores NumWebVisitsMonth: Number of visits to company’s web site in the last month AcceptedCmp3: 1 if customer accepted the offer in the 3rd campaign, 0 otherwise AcceptedCmp4: 1 if customer accepted the offer in the 4th campaign, 0 otherwise AcceptedCmp5: 1 if customer accepted the offer in the 5th campaign, 0 otherwise AcceptedCmp1: 1 if customer accepted the offer in the 1st campaign, 0 otherwise AcceptedCmp2: 1 if customer accepted the offer in the 2nd campaign, 0 otherwise Response: 1 if customer accepted the offer in the last campaign, 0 otherwise Complain: 1 if customer complained in the last 2 years, 0 otherwise Country: Customer’s location</p>
+<p>ID: Customer’s unique identifier</p>
+<p>Year_Birth: Customer’s birth year</p>
+<p>Education: Customer’s education level</p>
+<p>Marital_Status: Customer’s marital status</p>
+<p>Income: Customer’s yearly household income</p>
+<p>Kidhome: Number of children in customer’s household</p>
+<p>Teenhome: Number of teenagers in customer’s household</p>
+<p>Dt_Customer: Date of customer’s enrollment with the company</p>
+<p>Recency: Number of days since customer’s last purchase</p>
+<p>MntWines: Amount spent on wine in the last 2 years</p>
+<p>MntFruits: Amount spent on wine in the last 2 years</p>
+<p>MntMeatProducts: Amount spent on meat in the last 2 years</p>
+<p>MntFishProducts: Amount spent on fish in the last 2 years</p>
+<p>MntSweetProducts: Amount spent on sweets in the last 2 years</p>
+<p>MntGoldProds: Amount spent on gold in the last 2 years</p>
+<p>NumDealsPurchase: Number of purchases made with a discount</p>
+<p>NumWebPurchases: Number of purchases made through the company’s web site</p>
+<p>NumCatalogPurchases: Number of purchases made using a catalogue</p>
+<p>NumStorePurchases: Number of purchases made directly in stores</p>
+<p>NumWebVisitsMonth: Number of visits to company’s web site in the last month</p>
+<p>AcceptedCmp3: 1 if customer accepted the offer in the 3rd campaign, 0 otherwise</p>
+<p>AcceptedCmp4: 1 if customer accepted the offer in the 4th campaign, 0 otherwise</p>
+<p>AcceptedCmp5: 1 if customer accepted the offer in the 5th campaign, 0 otherwise</p>
+<p>AcceptedCmp1: 1 if customer accepted the offer in the 1st campaign, 0 otherwise</p>
+<p>AcceptedCmp2: 1 if customer accepted the offer in the 2nd campaign, 0 otherwise</p>
+<p>Response: 1 if customer accepted the offer in the last campaign, 0 otherwise</p>
+<p>Complain: 1 if customer complained in the last 2 years, 0 otherwise</p>
+<p>Country: Customer’s location</p>
 <p>Note that we have a variable, “year_birth”, for the costumers which probably is hard to interpret in a model. We would have to build an age variable. Also, note that the income variable is a string variable. It includes the dollar symbol, “$”, before the yearly income. Dt_Customer is a supposed to be a date.</p>
 <p>We have to transform the income variable into a numerical variable. Marital status, education, accepted* and response as factors. Maybe country as a factor too. Also an age variable: 2021 - year_birth.</p>
 <pre class="r"><code>marketing &lt;- marketing_data %&gt;% 
@@ -523,7 +550,7 @@ summary(marketing_imp)</code></pre>
   labs(title = &quot;Age Histogram&quot;)+
   ylab(NULL)
 hist_age</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-7-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>sum(marketing_imp$Age &gt; 100)</code></pre>
 <pre><code>## [1] 3</code></pre>
 <p>Three participants older than 100 years old. Since this is a digital commerce, I will drop these observations. It is unlikely that the people in this age buy online.</p>
@@ -534,7 +561,7 @@ hist_age</code></pre>
   ylab(NULL)
 require(scales)
 hist_income + scale_x_continuous(labels = comma)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-9-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <pre class="r"><code>sum(marketing_imp$Income &gt; 100000 )</code></pre>
 <pre><code>## [1] 13</code></pre>
 <p>There are 13 participants that earn more than $100,000 dollars per year. I will also drop these observations as they might induce noise to the analyses.</p>
@@ -594,13 +621,13 @@ summary(marketing_ready)</code></pre>
   geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
   labs(title = &quot;Age Histogram&quot;)+
   ylab(NULL)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-12-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre class="r"><code>marketing_ready %&gt;% 
   ggplot(aes(Income))+
   geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
   labs(title = &quot;Income Histogram&quot;)+
   ylab(NULL) + scale_x_continuous(labels = comma)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-13-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Both variables look better now. Now lets look at the distribution of the remaining continous variables and categorical variables.</p>
 <pre class="r"><code>hist_wines &lt;- marketing_ready %&gt;% 
   ggplot(aes(MntWines))+
@@ -640,7 +667,7 @@ hist_GoldProds &lt;- marketing_ready %&gt;%
 
 grid.arrange(hist_wines, hist_fruits, hist_MeatProducts, hist_FishProducts,
              hist_SweetProducts, hist_GoldProds, ncol=3)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-14-1.png" width="1440" /> There are a lot of zeros for the distribution of the amount spend on each of the products. A few outliers in the expenditure behavior of the costumers. For example, the meat products histogram shows a point at the right of the distribution with more than 1,500 USD spent in the last two years. The sweet products histogram shows a similar behavior. The gold products are more sold, they have at least higher number of observations with one dollar spent.</p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-14-1.png" width="672" /> There are a lot of zeros for the distribution of the amount spend on each of the products. A few outliers in the expenditure behavior of the costumers. For example, the meat products histogram shows a point at the right of the distribution with more than 1,500 USD spent in the last two years. The sweet products histogram shows a similar behavior. The gold products are more sold, they have at least higher number of observations with one dollar spent.</p>
 <pre class="r"><code>par(mfrow = c(3,3))
 plot(marketing_ready$Education, main = &quot;Education&quot;)
 plot(marketing_ready$Marital_Status, main = &quot;Marital Status&quot;)
@@ -651,7 +678,7 @@ plot(marketing_ready$AcceptedCmp3, main = &quot;Offer 3rd Campaign Success&quot;
 plot(marketing_ready$AcceptedCmp4, main = &quot;Offer 4th Campaign Success&quot;)
 plot(marketing_ready$AcceptedCmp1, main = &quot;Offer 5th Campaign Success&quot;)
 plot(marketing_ready$Response, main = &quot;Last offer Success&quot;)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-15-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <pre class="r"><code>table(marketing_ready$Marital_Status)</code></pre>
 <pre><code>## 
 ##   Absurd    Alone Divorced  Married   Single Together    Widow     YOLO 
@@ -720,7 +747,7 @@ summary(marketing_ready)</code></pre>
 marketing_ready %&gt;% 
   ggplot(aes(total_purch)) +
   geom_histogram()</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-19-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <pre class="r"><code>summary(marketing_ready)</code></pre>
 <pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
 ##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229    Min.   : 1730  
@@ -773,7 +800,7 @@ marketing_ready %&gt;%
 <pre class="r"><code>marketing_ready %&gt;% 
   ggplot(aes(Age, log(MntSweetProducts), colour = Country))+
   geom_point()</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="1440" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <div id="section-02-statistical-analysis" class="section level3">
 <h3>Section 02: Statistical Analysis</h3>
 <ol style="list-style-type: decimal">
