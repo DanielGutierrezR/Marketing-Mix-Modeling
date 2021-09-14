@@ -260,10 +260,10 @@ summary(marketing_ready)
 ```
 ```{r}
 marketing_ready %>% 
-  ggplot(aes(Age, log(MntSweetProducts), colour = Country))+
+  ggplot(aes(Income, log(total_purch), colour = Country))+
   geom_point()
 ```
-
+There is a non-linear relationship between amount spent and income.
 
 ### Section 02: Statistical Analysis
 

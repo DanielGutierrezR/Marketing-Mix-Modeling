@@ -798,9 +798,9 @@ marketing_ready %&gt;%
 ##  GER    : 120   Max.   :81.00   Max.   :2525.0  
 ##  (Other): 111</code></pre>
 <pre class="r"><code>marketing_ready %&gt;% 
-  ggplot(aes(Age, log(MntSweetProducts), colour = Country))+
+  ggplot(aes(Income, log(total_purch), colour = Country))+
   geom_point()</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="672" /> There is a non-linear relationship between amount spent and income.</p>
 <div id="section-02-statistical-analysis" class="section level3">
 <h3>Section 02: Statistical Analysis</h3>
 <ol style="list-style-type: decimal">
