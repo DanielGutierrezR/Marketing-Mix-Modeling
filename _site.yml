@@ -1,12 +1,10 @@
-name: "cars"
-output_dir: "docs"
+name: "Marketing Data"
+output_dir: "."
 navbar:
-  title: "Cars"
+  title: "Marketing Data"
   left:
   - text: "Home"
-   href: index.html
-  - text: "Speed and Distance"
-   href: speed-and-distance.html
-output:
-  html_document:
- theme: cosmo
+    href: index.html
+  - text: "Marketing Mix Modelling"
+    href: marketing_data.html
+

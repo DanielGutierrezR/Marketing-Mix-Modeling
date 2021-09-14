@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Marketing Data</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Marketing Data</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="marketing_data.html">Marketing Mix Modelling</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Marketing Data</h1>
+
+</div>
+
+
+<div id="data-marketing-analysis-from-kaggle" class="section level1">
+<h1>Data Marketing Analysis from Kaggle</h1>
+<div id="section-01-exploratory-data-analysis" class="section level2">
+<h2>Section 01: Exploratory Data Analysis</h2>
+<p>Let’s analyze the marketing data set provided by an user of Kaggle.</p>
+<pre class="r"><code>setwd(&quot;C:/Users/Daniel Gutierrez/Desktop/R Practice/Marketing Data Kaggle&quot;)
+marketing_data &lt;- readr::read_csv(&quot;marketing_data.csv&quot;)</code></pre>
+<p>Simple summary statistics of the data sets to see what variables we have</p>
+<pre class="r"><code>summary(marketing_data)</code></pre>
+<pre><code>##        ID          Year_Birth    Education         Marital_Status        Income         
+##  Min.   :    0   Min.   :1893   Length:2240        Length:2240        Length:2240       
+##  1st Qu.: 2828   1st Qu.:1959   Class :character   Class :character   Class :character  
+##  Median : 5458   Median :1970   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   : 5592   Mean   :1969                                                           
+##  3rd Qu.: 8428   3rd Qu.:1977                                                           
+##  Max.   :11191   Max.   :1996                                                           
+##     Kidhome          Teenhome      Dt_Customer           Recency         MntWines      
+##  Min.   :0.0000   Min.   :0.0000   Length:2240        Min.   : 0.00   Min.   :   0.00  
+##  1st Qu.:0.0000   1st Qu.:0.0000   Class :character   1st Qu.:24.00   1st Qu.:  23.75  
+##  Median :0.0000   Median :0.0000   Mode  :character   Median :49.00   Median : 173.50  
+##  Mean   :0.4442   Mean   :0.5062                      Mean   :49.11   Mean   : 303.94  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000                      3rd Qu.:74.00   3rd Qu.: 504.25  
+##  Max.   :2.0000   Max.   :2.0000                      Max.   :99.00   Max.   :1493.00  
+##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
+##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
+##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
+##  Mean   : 26.3   Mean   : 166.9   Mean   : 37.53   Mean   : 27.06   Mean   : 44.02  
+##  3rd Qu.: 33.0   3rd Qu.: 232.0   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
+##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
+##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
+##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
+##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
+##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
+##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
+##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
+##   AcceptedCmp3      AcceptedCmp4      AcceptedCmp5      AcceptedCmp1      AcceptedCmp2    
+##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
+##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  
+##  Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000  
+##  Mean   :0.07277   Mean   :0.07455   Mean   :0.07277   Mean   :0.06429   Mean   :0.01339  
+##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+##  Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  
+##     Response         Complain          Country         
+##  Min.   :0.0000   Min.   :0.000000   Length:2240       
+##  1st Qu.:0.0000   1st Qu.:0.000000   Class :character  
+##  Median :0.0000   Median :0.000000   Mode  :character  
+##  Mean   :0.1491   Mean   :0.009375                     
+##  3rd Qu.:0.0000   3rd Qu.:0.000000                     
+##  Max.   :1.0000   Max.   :1.000000</code></pre>
+<pre class="r"><code>str(marketing_data)</code></pre>
+<pre><code>## spec_tbl_df [2,240 x 28] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ ID                 : num [1:2240] 1826 1 10476 1386 5371 ...
+##  $ Year_Birth         : num [1:2240] 1970 1961 1958 1967 1989 ...
+##  $ Education          : chr [1:2240] &quot;Graduation&quot; &quot;Graduation&quot; &quot;Graduation&quot; &quot;Graduation&quot; ...
+##  $ Marital_Status     : chr [1:2240] &quot;Divorced&quot; &quot;Single&quot; &quot;Married&quot; &quot;Together&quot; ...
+##  $ Income             : chr [1:2240] &quot;$84,835.00&quot; &quot;$57,091.00&quot; &quot;$67,267.00&quot; &quot;$32,474.00&quot; ...
+##  $ Kidhome            : num [1:2240] 0 0 0 1 1 0 0 0 0 0 ...
+##  $ Teenhome           : num [1:2240] 0 0 1 1 0 0 0 1 1 1 ...
+##  $ Dt_Customer        : chr [1:2240] &quot;6/16/14&quot; &quot;6/15/14&quot; &quot;5/13/14&quot; &quot;5/11/14&quot; ...
+##  $ Recency            : num [1:2240] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ MntWines           : num [1:2240] 189 464 134 10 6 336 769 78 384 384 ...
+##  $ MntFruits          : num [1:2240] 104 5 11 0 16 130 80 0 0 0 ...
+##  $ MntMeatProducts    : num [1:2240] 379 64 59 1 24 411 252 11 102 102 ...
+##  $ MntFishProducts    : num [1:2240] 111 7 15 0 11 240 15 0 21 21 ...
+##  $ MntSweetProducts   : num [1:2240] 189 0 2 0 0 32 34 0 32 32 ...
+##  $ MntGoldProds       : num [1:2240] 218 37 30 0 34 43 65 7 5 5 ...
+##  $ NumDealsPurchases  : num [1:2240] 1 1 1 1 2 1 1 1 3 3 ...
+##  $ NumWebPurchases    : num [1:2240] 4 7 3 1 3 4 10 2 6 6 ...
+##  $ NumCatalogPurchases: num [1:2240] 4 3 2 0 1 7 10 1 2 2 ...
+##  $ NumStorePurchases  : num [1:2240] 6 7 5 2 2 5 7 3 9 9 ...
+##  $ NumWebVisitsMonth  : num [1:2240] 1 5 2 7 7 2 6 5 4 4 ...
+##  $ AcceptedCmp3       : num [1:2240] 0 0 0 0 1 0 1 0 0 0 ...
+##  $ AcceptedCmp4       : num [1:2240] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ AcceptedCmp5       : num [1:2240] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ AcceptedCmp1       : num [1:2240] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ AcceptedCmp2       : num [1:2240] 0 1 0 0 0 0 0 0 0 0 ...
+##  $ Response           : num [1:2240] 1 1 0 0 1 1 1 0 0 0 ...
+##  $ Complain           : num [1:2240] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ Country            : chr [1:2240] &quot;SP&quot; &quot;CA&quot; &quot;US&quot; &quot;AUS&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   ID = col_double(),
+##   ..   Year_Birth = col_double(),
+##   ..   Education = col_character(),
+##   ..   Marital_Status = col_character(),
+##   ..   Income = col_character(),
+##   ..   Kidhome = col_double(),
+##   ..   Teenhome = col_double(),
+##   ..   Dt_Customer = col_character(),
+##   ..   Recency = col_double(),
+##   ..   MntWines = col_double(),
+##   ..   MntFruits = col_double(),
+##   ..   MntMeatProducts = col_double(),
+##   ..   MntFishProducts = col_double(),
+##   ..   MntSweetProducts = col_double(),
+##   ..   MntGoldProds = col_double(),
+##   ..   NumDealsPurchases = col_double(),
+##   ..   NumWebPurchases = col_double(),
+##   ..   NumCatalogPurchases = col_double(),
+##   ..   NumStorePurchases = col_double(),
+##   ..   NumWebVisitsMonth = col_double(),
+##   ..   AcceptedCmp3 = col_double(),
+##   ..   AcceptedCmp4 = col_double(),
+##   ..   AcceptedCmp5 = col_double(),
+##   ..   AcceptedCmp1 = col_double(),
+##   ..   AcceptedCmp2 = col_double(),
+##   ..   Response = col_double(),
+##   ..   Complain = col_double(),
+##   ..   Country = col_character()
+##   .. )
+##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
+<p>ID: Customer’s unique identifier Year_Birth: Customer’s birth year Education: Customer’s education level Marital_Status: Customer’s marital status Income: Customer’s yearly household income Kidhome: Number of children in customer’s household Teenhome: Number of teenagers in customer’s household Dt_Customer: Date of customer’s enrollment with the company Recency: Number of days since customer’s last purchase MntWines: Amount spent on wine in the last 2 years MntFruits: Amount spent on wine in the last 2 years MntMeatProducts: Amount spent on meat in the last 2 years MntFishProducts: Amount spent on fish in the last 2 years MntSweetProducts: Amount spent on sweets in the last 2 years MntGoldProds: Amount spent on gold in the last 2 years NumDealsPurchase: Number of purchases made with a discount NumWebPurchases: Number of purchases made through the company’s web site NumCatalogPurchases: Number of purchases made using a catalogue NumStorePurchases: Number of purchases made directly in stores NumWebVisitsMonth: Number of visits to company’s web site in the last month AcceptedCmp3: 1 if customer accepted the offer in the 3rd campaign, 0 otherwise AcceptedCmp4: 1 if customer accepted the offer in the 4th campaign, 0 otherwise AcceptedCmp5: 1 if customer accepted the offer in the 5th campaign, 0 otherwise AcceptedCmp1: 1 if customer accepted the offer in the 1st campaign, 0 otherwise AcceptedCmp2: 1 if customer accepted the offer in the 2nd campaign, 0 otherwise Response: 1 if customer accepted the offer in the last campaign, 0 otherwise Complain: 1 if customer complained in the last 2 years, 0 otherwise Country: Customer’s location</p>
+<p>Note that we have a variable, “year_birth”, for the costumers which probably is hard to interpret in a model. We would have to build an age variable. Also, note that the income variable is a string variable. It includes the dollar symbol, “$”, before the yearly income. Dt_Customer is a supposed to be a date.</p>
+<p>We have to transform the income variable into a numerical variable. Marital status, education, accepted* and response as factors. Maybe country as a factor too. Also an age variable: 2021 - year_birth.</p>
+<pre class="r"><code>marketing &lt;- marketing_data %&gt;% 
+  mutate(Income = as.numeric(gsub(&quot;[^0-9.-]&quot;, &quot;&quot;,Income)),
+         Dt_Customer = as.Date(Dt_Customer, &quot;%m/%d/%y&quot;),
+         Education = as.factor(Education),
+         Marital_Status = as.factor(Marital_Status),
+         Country = as.factor(Country),
+         AcceptedCmp1 = as.factor(AcceptedCmp1),
+         AcceptedCmp2 = as.factor(AcceptedCmp2),
+         AcceptedCmp3 = as.factor(AcceptedCmp3),
+         AcceptedCmp4 = as.factor(AcceptedCmp4),
+         AcceptedCmp5 = as.factor(AcceptedCmp5),
+         Response = as.factor(Response),
+         Age = 2021 - Year_Birth)
+marketing</code></pre>
+<pre><code>## # A tibble: 2,240 x 29
+##       ID Year_Birth Education  Marital_Status Income Kidhome Teenhome Dt_Customer Recency
+##    &lt;dbl&gt;      &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;           &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt;
+##  1  1826       1970 Graduation Divorced        84835       0        0 2014-06-16        0
+##  2     1       1961 Graduation Single          57091       0        0 2014-06-15        0
+##  3 10476       1958 Graduation Married         67267       0        1 2014-05-13        0
+##  4  1386       1967 Graduation Together        32474       1        1 2014-05-11        0
+##  5  5371       1989 Graduation Single          21474       1        0 2014-04-08        0
+##  6  7348       1958 PhD        Single          71691       0        0 2014-03-17        0
+##  7  4073       1954 2n Cycle   Married         63564       0        0 2014-01-29        0
+##  8  1991       1967 Graduation Together        44931       0        1 2014-01-18        0
+##  9  4047       1954 PhD        Married         65324       0        1 2014-01-11        0
+## 10  9477       1954 PhD        Married         65324       0        1 2014-01-11        0
+## # ... with 2,230 more rows, and 20 more variables: MntWines &lt;dbl&gt;, MntFruits &lt;dbl&gt;,
+## #   MntMeatProducts &lt;dbl&gt;, MntFishProducts &lt;dbl&gt;, MntSweetProducts &lt;dbl&gt;, MntGoldProds &lt;dbl&gt;,
+## #   NumDealsPurchases &lt;dbl&gt;, NumWebPurchases &lt;dbl&gt;, NumCatalogPurchases &lt;dbl&gt;,
+## #   NumStorePurchases &lt;dbl&gt;, NumWebVisitsMonth &lt;dbl&gt;, AcceptedCmp3 &lt;fct&gt;, AcceptedCmp4 &lt;fct&gt;,
+## #   AcceptedCmp5 &lt;fct&gt;, AcceptedCmp1 &lt;fct&gt;, AcceptedCmp2 &lt;fct&gt;, Response &lt;fct&gt;,
+## #   Complain &lt;dbl&gt;, Country &lt;fct&gt;, Age &lt;dbl&gt;</code></pre>
+<p>The raw the data set now looks better. But there are some NA’s. Let’s investigate them.</p>
+<pre class="r"><code>summary(marketing)</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income      
+##  Min.   :    0   Min.   :1893   2n Cycle  : 203   Married :864    Min.   :  1730  
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:580    1st Qu.: 35303  
+##  Median : 5458   Median :1970   Graduation:1127   Single  :480    Median : 51382  
+##  Mean   : 5592   Mean   :1969   Master    : 370   Divorced:232    Mean   : 52247  
+##  3rd Qu.: 8428   3rd Qu.:1977   PhD       : 486   Widow   : 77    3rd Qu.: 68522  
+##  Max.   :11191   Max.   :1996                     Alone   :  3    Max.   :666666  
+##                                                   (Other) :  4    NA&#39;s   :24      
+##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines      
+##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.00  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  23.75  
+##  Median :0.0000   Median :0.0000   Median :2013-07-08   Median :49.00   Median : 173.50  
+##  Mean   :0.4442   Mean   :0.5062   Mean   :2013-07-10   Mean   :49.11   Mean   : 303.94  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 504.25  
+##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.00  
+##                                                                                          
+##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
+##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
+##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
+##  Mean   : 26.3   Mean   : 166.9   Mean   : 37.53   Mean   : 27.06   Mean   : 44.02  
+##  3rd Qu.: 33.0   3rd Qu.: 232.0   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
+##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
+##                                                                                     
+##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
+##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
+##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
+##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
+##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
+##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
+##                                                                                            
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
+##  0:2077       0:2073       0:2077       0:2096       0:2210       0:1906   Min.   :0.000000  
+##  1: 163       1: 167       1: 163       1: 144       1:  30       1: 334   1st Qu.:0.000000  
+##                                                                            Median :0.000000  
+##                                                                            Mean   :0.009375  
+##                                                                            3rd Qu.:0.000000  
+##                                                                            Max.   :1.000000  
+##                                                                                              
+##     Country          Age        
+##  SP     :1095   Min.   : 25.00  
+##  SA     : 337   1st Qu.: 44.00  
+##  CA     : 268   Median : 51.00  
+##  AUS    : 160   Mean   : 52.19  
+##  IND    : 148   3rd Qu.: 62.00  
+##  GER    : 120   Max.   :128.00  
+##  (Other): 112</code></pre>
+<p>There are 24 NA’s for the income variable. We could substitute them by the mean of the income depending on their education. We could also delete them. Let’s try both approaches and compare the results.</p>
+<pre class="r"><code>marketing_imp &lt;- marketing %&gt;% 
+  group_by(Education) %&gt;% 
+  mutate(Income = ifelse(is.na(Income), mean(Income, na.rm = TRUE), Income))
+summary(marketing_imp)</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income      
+##  Min.   :    0   Min.   :1893   2n Cycle  : 203   Married :864    Min.   :  1730  
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:580    1st Qu.: 35539  
+##  Median : 5458   Median :1970   Graduation:1127   Single  :480    Median : 51610  
+##  Mean   : 5592   Mean   :1969   Master    : 370   Divorced:232    Mean   : 52254  
+##  3rd Qu.: 8428   3rd Qu.:1977   PhD       : 486   Widow   : 77    3rd Qu.: 68290  
+##  Max.   :11191   Max.   :1996                     Alone   :  3    Max.   :666666  
+##                                                   (Other) :  4                    
+##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines      
+##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.00  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  23.75  
+##  Median :0.0000   Median :0.0000   Median :2013-07-08   Median :49.00   Median : 173.50  
+##  Mean   :0.4442   Mean   :0.5062   Mean   :2013-07-10   Mean   :49.11   Mean   : 303.94  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 504.25  
+##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.00  
+##                                                                                          
+##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
+##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
+##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
+##  Mean   : 26.3   Mean   : 166.9   Mean   : 37.53   Mean   : 27.06   Mean   : 44.02  
+##  3rd Qu.: 33.0   3rd Qu.: 232.0   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
+##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
+##                                                                                     
+##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
+##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
+##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
+##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
+##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
+##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
+##                                                                                            
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
+##  0:2077       0:2073       0:2077       0:2096       0:2210       0:1906   Min.   :0.000000  
+##  1: 163       1: 167       1: 163       1: 144       1:  30       1: 334   1st Qu.:0.000000  
+##                                                                            Median :0.000000  
+##                                                                            Mean   :0.009375  
+##                                                                            3rd Qu.:0.000000  
+##                                                                            Max.   :1.000000  
+##                                                                                              
+##     Country          Age        
+##  SP     :1095   Min.   : 25.00  
+##  SA     : 337   1st Qu.: 44.00  
+##  CA     : 268   Median : 51.00  
+##  AUS    : 160   Mean   : 52.19  
+##  IND    : 148   3rd Qu.: 62.00  
+##  GER    : 120   Max.   :128.00  
+##  (Other): 112</code></pre>
+<p>No more NA’s. Now we can start an uni-variate analysis to check for implausible values and outliers. Age and income are already causing me suspicious. Maximum value of Age is 128 years old with a mean of 52 and a 75% quantile of 62, probably this person of 128 is an outlier or just a mistake when writing the dataset. For income the maximum value is $666,666 per year, with a mean of $52,254 and 75% of the participants earn less than $68,290. The maximum value is about 10 times higher. The number itself its already suspicious as it is a sequence of six sixes. It is very likely that this is not a real person. But we analyze it.</p>
+<pre class="r"><code>hist_age &lt;- marketing_imp %&gt;% 
+  ggplot(aes(Age))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Age Histogram&quot;)+
+  ylab(NULL)
+hist_age</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-7-1.png" width="1440" /></p>
+<pre class="r"><code>sum(marketing_imp$Age &gt; 100)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>Three participants older than 100 years old. Since this is a digital commerce, I will drop these observations. It is unlikely that the people in this age buy online.</p>
+<pre class="r"><code>hist_income &lt;- marketing_imp %&gt;% 
+  ggplot(aes(Income))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Income Histogram&quot;)+
+  ylab(NULL)
+require(scales)
+hist_income + scale_x_continuous(labels = comma)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-9-1.png" width="1440" /></p>
+<pre class="r"><code>sum(marketing_imp$Income &gt; 100000 )</code></pre>
+<pre><code>## [1] 13</code></pre>
+<p>There are 13 participants that earn more than $100,000 dollars per year. I will also drop these observations as they might induce noise to the analyses.</p>
+<pre class="r"><code>marketing_ready &lt;- marketing_imp %&gt;% 
+  filter(Income &lt; 100000 &amp; Age &lt; 100)
+summary(marketing_ready)</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
+##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Married :861    Min.   : 1730  
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:573    1st Qu.:35376  
+##  Median : 5458   Median :1970   Graduation:1121   Single  :477    Median :51412  
+##  Mean   : 5589   Mean   :1969   Master    : 369   Divorced:229    Mean   :51515  
+##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 479   Widow   : 77    3rd Qu.:67911  
+##  Max.   :11191   Max.   :1996                     Alone   :  3    Max.   :98777  
+##                                                   (Other) :  4                   
+##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines     
+##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.0  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  24.0  
+##  Median :0.0000   Median :0.0000   Median :2013-07-09   Median :49.50   Median : 176.0  
+##  Mean   :0.4456   Mean   :0.5085   Mean   :2013-07-10   Mean   :49.14   Mean   : 304.5  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 504.2  
+##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.0  
+##                                                                                         
+##    MntFruits      MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
+##  Min.   :  0.00   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.:  1.75   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
+##  Median :  8.00   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
+##  Mean   : 26.23   Mean   : 165.3   Mean   : 37.57   Mean   : 26.91   Mean   : 43.95  
+##  3rd Qu.: 33.00   3rd Qu.: 231.2   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
+##  Max.   :199.00   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
+##                                                                                      
+##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
+##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
+##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
+##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.627      Mean   : 5.804    Mean   : 5.341   
+##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
+##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
+##                                                                                            
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
+##  0:2061       0:2060       0:2066       0:2084       0:2195       0:1894   Min.   :0.000000  
+##  1: 163       1: 164       1: 158       1: 140       1:  29       1: 330   1st Qu.:0.000000  
+##                                                                            Median :0.000000  
+##                                                                            Mean   :0.008993  
+##                                                                            3rd Qu.:0.000000  
+##                                                                            Max.   :1.000000  
+##                                                                                              
+##     Country          Age       
+##  SP     :1089   Min.   :25.00  
+##  SA     : 332   1st Qu.:44.00  
+##  CA     : 266   Median :51.00  
+##  AUS    : 160   Mean   :52.11  
+##  IND    : 146   3rd Qu.:62.00  
+##  GER    : 120   Max.   :81.00  
+##  (Other): 111</code></pre>
+<pre class="r"><code>marketing_ready %&gt;% 
+  ggplot(aes(Age))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Age Histogram&quot;)+
+  ylab(NULL)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-12-1.png" width="1440" /></p>
+<pre class="r"><code>marketing_ready %&gt;% 
+  ggplot(aes(Income))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Income Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-13-1.png" width="1440" /></p>
+<p>Both variables look better now. Now lets look at the distribution of the remaining continous variables and categorical variables.</p>
+<pre class="r"><code>hist_wines &lt;- marketing_ready %&gt;% 
+  ggplot(aes(MntWines))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Wine Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_fruits &lt;- marketing_ready %&gt;% 
+  ggplot(aes(MntFruits))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Fruits Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_MeatProducts &lt;- marketing_ready %&gt;% 
+  ggplot(aes(MntMeatProducts))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Meat Products Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_FishProducts &lt;- marketing_ready %&gt;% 
+  ggplot(aes(MntFishProducts))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Fish Products Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_SweetProducts &lt;- marketing_ready %&gt;% 
+  ggplot(aes(MntSweetProducts))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Sweet Products Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+hist_GoldProds &lt;- marketing_ready %&gt;% 
+  ggplot(aes(MntGoldProds))+
+  geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
+  labs(title = &quot;Gold Products Histogram&quot;)+
+  ylab(NULL) + scale_x_continuous(labels = comma)
+
+grid.arrange(hist_wines, hist_fruits, hist_MeatProducts, hist_FishProducts,
+             hist_SweetProducts, hist_GoldProds, ncol=3)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-14-1.png" width="1440" /> There are a lot of zeros for the distribution of the amount spend on each of the products. A few outliers in the expenditure behavior of the costumers. For example, the meat products histogram shows a point at the right of the distribution with more than 1,500 USD spent in the last two years. The sweet products histogram shows a similar behavior. The gold products are more sold, they have at least higher number of observations with one dollar spent.</p>
+<pre class="r"><code>par(mfrow = c(3,3))
+plot(marketing_ready$Education, main = &quot;Education&quot;)
+plot(marketing_ready$Marital_Status, main = &quot;Marital Status&quot;)
+plot(marketing_ready$Country, main = &quot;Country&quot;)
+plot(marketing_ready$AcceptedCmp1, main = &quot;Offer 1st Campaign Success&quot;)
+plot(marketing_ready$AcceptedCmp2, main = &quot;Offer 2nd Campaign Success&quot;)
+plot(marketing_ready$AcceptedCmp3, main = &quot;Offer 3rd Campaign Success&quot;)
+plot(marketing_ready$AcceptedCmp4, main = &quot;Offer 4th Campaign Success&quot;)
+plot(marketing_ready$AcceptedCmp1, main = &quot;Offer 5th Campaign Success&quot;)
+plot(marketing_ready$Response, main = &quot;Last offer Success&quot;)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-15-1.png" width="1440" /></p>
+<pre class="r"><code>table(marketing_ready$Marital_Status)</code></pre>
+<pre><code>## 
+##   Absurd    Alone Divorced  Married   Single Together    Widow     YOLO 
+##        2        3      229      861      477      573       77        2</code></pre>
+<p>Probably would make sense to merge Alone with the Single category and drop “Absurd” and “YOLO”.</p>
+<pre class="r"><code>marketing_ready$Marital_Status &lt;- as.factor(ifelse(as.character(marketing_ready$Marital_Status) == &quot;Alone&quot;, &quot;Single&quot;,as.character(marketing_ready$Marital_Status)))
+table(marketing_ready$Marital_Status)</code></pre>
+<pre><code>## 
+##   Absurd Divorced  Married   Single Together    Widow     YOLO 
+##        2      229      861      480      573       77        2</code></pre>
+<pre class="r"><code>marketing_ready &lt;- marketing_ready %&gt;% 
+  filter(Marital_Status != &quot;Absurd&quot; &amp; Marital_Status != &quot;YOLO&quot;) %&gt;% 
+  mutate(Marital_Status = factor(Marital_Status))
+summary(marketing_ready)</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
+##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229    Min.   : 1730  
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Married :861    1st Qu.:35336  
+##  Median : 5458   Median :1970   Graduation:1120   Single  :480    Median :51412  
+##  Mean   : 5588   Mean   :1969   Master    : 368   Together:573    Mean   :51499  
+##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 477   Widow   : 77    3rd Qu.:67911  
+##  Max.   :11191   Max.   :1996                                     Max.   :98777  
+##                                                                                  
+##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines     
+##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.0  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  24.0  
+##  Median :0.0000   Median :0.0000   Median :2013-07-09   Median :50.00   Median : 174.5  
+##  Mean   :0.4464   Mean   :0.5086   Mean   :2013-07-10   Mean   :49.18   Mean   : 304.4  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 505.0  
+##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.0  
+##                                                                                         
+##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
+##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
+##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
+##  Mean   : 26.2   Mean   : 165.3   Mean   : 37.45   Mean   : 26.92   Mean   : 43.81  
+##  3rd Qu.: 33.0   3rd Qu.: 231.2   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
+##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
+##                                                                                     
+##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
+##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
+##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
+##  Mean   : 2.323    Mean   : 4.082   Mean   : 2.624      Mean   : 5.803    Mean   : 5.342   
+##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
+##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
+##                                                                                            
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
+##  0:2057       0:2056       0:2063       0:2081       0:2191       0:1892   Min.   :0.000000  
+##  1: 163       1: 164       1: 157       1: 139       1:  29       1: 328   1st Qu.:0.000000  
+##                                                                            Median :0.000000  
+##                                                                            Mean   :0.009009  
+##                                                                            3rd Qu.:0.000000  
+##                                                                            Max.   :1.000000  
+##                                                                                              
+##     Country          Age       
+##  SP     :1089   Min.   :25.00  
+##  SA     : 332   1st Qu.:44.00  
+##  CA     : 264   Median :51.00  
+##  AUS    : 159   Mean   :52.12  
+##  IND    : 145   3rd Qu.:62.00  
+##  GER    : 120   Max.   :81.00  
+##  (Other): 111</code></pre>
+<p>We could also create a variable for total purchases in the last two years</p>
+<pre class="r"><code>marketing_ready &lt;- marketing_ready %&gt;% 
+  mutate(total_purch = MntWines + MntFruits + MntMeatProducts + MntFishProducts + MntSweetProducts + MntGoldProds)
+marketing_ready %&gt;% 
+  ggplot(aes(total_purch)) +
+  geom_histogram()</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-19-1.png" width="1440" /></p>
+<pre class="r"><code>summary(marketing_ready)</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
+##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229    Min.   : 1730  
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Married :861    1st Qu.:35336  
+##  Median : 5458   Median :1970   Graduation:1120   Single  :480    Median :51412  
+##  Mean   : 5588   Mean   :1969   Master    : 368   Together:573    Mean   :51499  
+##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 477   Widow   : 77    3rd Qu.:67911  
+##  Max.   :11191   Max.   :1996                                     Max.   :98777  
+##                                                                                  
+##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines     
+##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.0  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  24.0  
+##  Median :0.0000   Median :0.0000   Median :2013-07-09   Median :50.00   Median : 174.5  
+##  Mean   :0.4464   Mean   :0.5086   Mean   :2013-07-10   Mean   :49.18   Mean   : 304.4  
+##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 505.0  
+##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.0  
+##                                                                                         
+##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
+##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
+##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
+##  Mean   : 26.2   Mean   : 165.3   Mean   : 37.45   Mean   : 26.92   Mean   : 43.81  
+##  3rd Qu.: 33.0   3rd Qu.: 231.2   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
+##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
+##                                                                                     
+##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
+##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
+##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
+##  Mean   : 2.323    Mean   : 4.082   Mean   : 2.624      Mean   : 5.803    Mean   : 5.342   
+##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
+##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
+##                                                                                            
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
+##  0:2057       0:2056       0:2063       0:2081       0:2191       0:1892   Min.   :0.000000  
+##  1: 163       1: 164       1: 157       1: 139       1:  29       1: 328   1st Qu.:0.000000  
+##                                                                            Median :0.000000  
+##                                                                            Mean   :0.009009  
+##                                                                            3rd Qu.:0.000000  
+##                                                                            Max.   :1.000000  
+##                                                                                              
+##     Country          Age         total_purch    
+##  SP     :1089   Min.   :25.00   Min.   :   5.0  
+##  SA     : 332   1st Qu.:44.00   1st Qu.:  69.0  
+##  CA     : 264   Median :51.00   Median : 395.5  
+##  AUS    : 159   Mean   :52.12   Mean   : 604.1  
+##  IND    : 145   3rd Qu.:62.00   3rd Qu.:1039.2  
+##  GER    : 120   Max.   :81.00   Max.   :2525.0  
+##  (Other): 111</code></pre>
+<pre class="r"><code>marketing_ready %&gt;% 
+  ggplot(aes(Age, log(MntSweetProducts), colour = Country))+
+  geom_point()</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="1440" /></p>
+<div id="section-02-statistical-analysis" class="section level3">
+<h3>Section 02: Statistical Analysis</h3>
+<ol style="list-style-type: decimal">
+<li>What factors are significantly related to the number of store purchases?</li>
+<li>Does US fare significantly better than the Rest of the World in terms of total purchases?</li>
+<li>Your supervisor insists that people who buy gold are more conservative. Therefore, people who spent an above average amount on gold in the last 2 years would have more in store purchases. Justify or refute this statement using an appropriate statistical test</li>
+<li>Fish has Omega 3 fatty acids which are good for the brain. Accordingly, do “Married PhD candidates” have a significant relation with amount spent on fish? What other factors are significantly related to amount spent on fish? (Hint: use your knowledge of interaction variables/effects)</li>
+<li>Is there a significant relationship between geographical regional and success of a campaign?</li>
+</ol>
+<p>To answer question 1 we can regress the number of store purchases on age, education, marital status, income, number of kids and teenagers at home and country. Also a second regression could include the offers the costumer took. A third regression could also include an indicator variable for each type of product to identify which products are acquired in a store. A count data model is useful to model the probabilities related to the event happening.</p>
+<pre class="r"><code>marketing_ready &lt;- marketing_ready %&gt;% 
+  mutate(wine = factor(ifelse(MntWines &gt; 0, 1, 0)),
+         fruits = factor(ifelse(MntFruits &gt; 0, 1, 0)),
+         meat = factor(ifelse(MntMeatProducts &gt; 0, 1, 0)),
+         fish = factor(ifelse(MntFishProducts &gt; 0, 1, 0)),
+         sweet = factor(ifelse(MntSweetProducts &gt; 0, 1, 0)),
+         gold = factor(ifelse(MntGoldProds &gt; 0, 1, 0)),
+         store_purchase = factor(ifelse(NumStorePurchases &gt; 0, 1,0)))
+
+store_ols1 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, data = marketing_ready)
+store_ols2 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response, data = marketing_ready)
+store_ols3 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, data = marketing_ready)
+store_negbin1 &lt;- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = negative.binomial(theta = 1), data = marketing_ready)
+stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = &quot;text&quot;, align = TRUE, no.space = TRUE)</code></pre>
+<pre><code>## 
+## ===============================================================================================================================
+##                                                                  Dependent variable:                                           
+##                        --------------------------------------------------------------------------------------------------------
+##                                                                   NumStorePurchases                                            
+##                                                             OLS                                       glm: Negative Binomial(1)
+##                                                                                                              link = log        
+##                                   (1)                        (2)                       (3)                       (4)           
+## -------------------------------------------------------------------------------------------------------------------------------
+## Age                             -0.011**                  -0.012**                  -0.010**                   -0.001*         
+##                                 (0.005)                    (0.005)                   (0.005)                   (0.001)         
+## EducationBasic                   0.048                      0.100                     0.062                    -0.032          
+##                                 (0.361)                    (0.357)                   (0.358)                   (0.061)         
+## EducationGraduation              -0.127                    -0.122                    -0.065                    -0.016          
+##                                 (0.177)                    (0.175)                   (0.174)                   (0.029)         
+## EducationMaster                  -0.075                    -0.062                     0.103                     0.022          
+##                                 (0.204)                    (0.202)                   (0.202)                   (0.033)         
+## EducationPhD                     -0.168                    -0.132                     0.161                     0.033          
+##                                 (0.197)                    (0.195)                   (0.200)                   (0.033)         
+## Marital_StatusMarried            0.165                      0.136                     0.163                    0.047*          
+##                                 (0.172)                    (0.171)                   (0.169)                   (0.028)         
+## Marital_StatusSingle             -0.009                    -0.013                     0.025                     0.011          
+##                                 (0.187)                    (0.184)                   (0.183)                   (0.030)         
+## Marital_StatusTogether           0.043                     -0.014                     0.015                     0.016          
+##                                 (0.180)                    (0.178)                   (0.177)                   (0.029)         
+## Marital_StatusWidow              0.065                      0.090                     0.132                     0.063          
+##                                 (0.305)                    (0.301)                   (0.299)                   (0.048)         
+## Income                         0.0001***                  0.0001***                 0.0001***                0.00002***        
+##                                (0.00000)                  (0.00000)                 (0.00000)                 (0.00000)        
+## Kidhome                        -1.226***                  -1.196***                 -1.089***                 -0.205***        
+##                                 (0.109)                    (0.107)                   (0.108)                   (0.018)         
+## Teenhome                         0.182*                     0.001                     0.110                   0.048***         
+##                                 (0.097)                    (0.099)                   (0.100)                   (0.016)         
+## CountryCA                        0.162                      0.152                     0.114                     0.016          
+##                                 (0.231)                    (0.228)                   (0.226)                   (0.037)         
+## CountryGER                       0.240                      0.211                     0.228                     0.031          
+##                                 (0.279)                    (0.275)                   (0.273)                   (0.044)         
+## CountryIND                       0.152                      0.106                     0.151                     0.021          
+##                                 (0.265)                    (0.262)                   (0.259)                   (0.043)         
+## CountryME                        -0.338                    -0.015                    -0.081                     0.081          
+##                                 (1.340)                    (1.326)                   (1.315)                   (0.210)         
+## CountrySA                        0.327                      0.302                     0.288                     0.049          
+##                                 (0.222)                    (0.219)                   (0.217)                   (0.036)         
+## CountrySP                        0.261                      0.278                     0.273                     0.037          
+##                                 (0.195)                    (0.193)                   (0.192)                   (0.031)         
+## CountryUS                        0.426                      0.401                     0.346                     0.054          
+##                                 (0.287)                    (0.283)                   (0.281)                   (0.046)         
+## AcceptedCmp11                                             -0.493**                  -0.446**                  -0.071**         
+##                                                            (0.227)                   (0.226)                   (0.036)         
+## AcceptedCmp21                                               0.652                    0.871*                    0.182**         
+##                                                            (0.451)                   (0.448)                   (0.071)         
+## AcceptedCmp31                                             -0.472**                  -0.416**                  -0.114***        
+##                                                            (0.194)                   (0.193)                   (0.032)         
+## AcceptedCmp41                                              0.384*                   0.573***                  0.116***         
+##                                                            (0.205)                   (0.205)                   (0.033)         
+## AcceptedCmp51                                             -0.886***                 -0.877***                 -0.178***        
+##                                                            (0.230)                   (0.228)                   (0.036)         
+## Response1                                                 -0.527***                 -0.612***                 -0.076***        
+##                                                            (0.154)                   (0.153)                   (0.025)         
+## wine1                                                                                 0.326                     0.116          
+##                                                                                      (0.673)                   (0.118)         
+## fruits1                                                                               0.180                    0.043*          
+##                                                                                      (0.144)                   (0.024)         
+## meat1                                                                                 0.248                     0.203          
+##                                                                                      (2.348)                   (0.426)         
+## fish1                                                                                0.336**                  0.075***         
+##                                                                                      (0.147)                   (0.024)         
+## sweet1                                                                              0.650***                  0.129***         
+##                                                                                      (0.142)                   (0.023)         
+## gold1                                                                                 0.425                    0.090*          
+##                                                                                      (0.297)                   (0.049)         
+## Constant                        1.836***                  1.776***                   -0.339                     0.215          
+##                                 (0.404)                    (0.402)                   (2.285)                   (0.415)         
+## -------------------------------------------------------------------------------------------------------------------------------
+## Observations                     2,220                      2,220                     2,220                     2,220          
+## R2                               0.502                      0.516                     0.527                                    
+## Adjusted R2                      0.497                      0.510                     0.520                                    
+## Log Likelihood                                                                                               -6,128.878        
+## Akaike Inf. Crit.                                                                                            12,321.760        
+## Residual Std. Error        2.293 (df = 2200)          2.263 (df = 2194)         2.241 (df = 2188)                              
+## F Statistic            116.601*** (df = 19; 2200) 93.464*** (df = 25; 2194) 78.542*** (df = 31; 2188)                          
+## ===============================================================================================================================
+## Note:                                                                                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>Both models hint us that the factors driven store purchases are kids and teenagers at home, income, age, the offer accepted at the moment of the purchase and the product that the costumer buys. For the count model, the excess of zeros might cause problems for the estimation of the parameters. It is a good idea to test a hurdle-zero model to asses for this characteristic.</p>
+<pre class="r"><code>store_hurdle &lt;- hurdle(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, dist = &quot;negbin&quot;, zero.dist = &quot;negbin&quot;, data = marketing_ready)
+stargazer(store_hurdle, type = &quot;text&quot;)</code></pre>
+<pre><code>## 
+## ==================================================
+##                            Dependent variable:    
+##                        ---------------------------
+##                             NumStorePurchases     
+## --------------------------------------------------
+## Age                              -0.001*          
+##                                  (0.001)          
+##                                                   
+## EducationBasic                   -0.142           
+##                                  (0.096)          
+##                                                   
+## EducationGraduation              -0.017           
+##                                  (0.033)          
+##                                                   
+## EducationMaster                  -0.004           
+##                                  (0.038)          
+##                                                   
+## EducationPhD                     -0.018           
+##                                  (0.036)          
+##                                                   
+## Marital_StatusMarried             0.036           
+##                                  (0.032)          
+##                                                   
+## Marital_StatusSingle              0.001           
+##                                  (0.035)          
+##                                                   
+## Marital_StatusTogether            0.012           
+##                                  (0.033)          
+##                                                   
+## Marital_StatusWidow               0.028           
+##                                  (0.054)          
+##                                                   
+## Income                         0.00002***         
+##                                  (0.000)          
+##                                                   
+## Kidhome                         -0.267***         
+##                                  (0.020)          
+##                                                   
+## Teenhome                        0.085***          
+##                                  (0.017)          
+##                                                   
+## CountryCA                         0.007           
+##                                  (0.043)          
+##                                                   
+## CountryGER                        0.035           
+##                                  (0.051)          
+##                                                   
+## CountryIND                        0.017           
+##                                  (0.051)          
+##                                                   
+## CountryME                        -0.022           
+##                                  (0.234)          
+##                                                   
+## CountrySA                         0.051           
+##                                  (0.042)          
+##                                                   
+## CountrySP                         0.032           
+##                                  (0.037)          
+##                                                   
+## CountryUS                        0.087*           
+##                                  (0.053)          
+##                                                   
+## Constant                        0.940***          
+##                                  (0.069)          
+##                                                   
+## --------------------------------------------------
+## Observations                      2,220           
+## Log Likelihood                 -4,714.239         
+## ==================================================
+## Note:                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

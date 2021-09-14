@@ -1,6 +1,5 @@
 ---
 title: "Marketing Data"
-output: html_notebook
 ---
 
 ```{r setup, include = FALSE}
@@ -13,6 +12,8 @@ library(mice)
 library(gridExtra)
 library(stargazer)
 library(MASS)
+library(pscl)
+library(lmtest)
 theme_set(theme_bw())
 ```
 
@@ -229,6 +230,11 @@ marketing_ready %>%
 ```{r}
 summary(marketing_ready)
 ```
+```{r}
+marketing_ready %>% 
+  ggplot(aes(Age, log(MntSweetProducts), colour = Country))+
+  geom_point()
+```
 
 
 ### Section 02: Statistical Analysis
@@ -257,4 +263,9 @@ store_ols3 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income +
 store_negbin1 <- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = negative.binomial(theta = 1), data = marketing_ready)
 stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = "text", align = TRUE, no.space = TRUE)
 ```
-  
+Both models hint us that the factors driven store purchases are kids and teenagers at home, income, age, the offer accepted at the moment of the purchase and the product that the costumer buys. For the count model, the excess of zeros might cause problems for the estimation of the parameters. It is a good idea to test a hurdle-zero model to asses for this characteristic. 
+
+```{r}
+store_hurdle <- hurdle(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, dist = "negbin", zero.dist = "negbin", data = marketing_ready)
+stargazer(store_hurdle, type = "text")
+```
