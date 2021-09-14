@@ -1,6 +1,5 @@
 ---
 title: "Marketing Data"
-output: html_notebook
 ---
 
 ```{r setup, include = FALSE}
@@ -11,6 +10,10 @@ library(tidyverse)
 library(silgelib)
 library(mice)
 library(gridExtra)
+library(stargazer)
+library(MASS)
+library(pscl)
+library(lmtest)
 theme_set(theme_bw())
 ```
 
@@ -227,7 +230,42 @@ marketing_ready %>%
 ```{r}
 summary(marketing_ready)
 ```
+```{r}
+marketing_ready %>% 
+  ggplot(aes(Age, log(MntSweetProducts), colour = Country))+
+  geom_point()
+```
 
 
 ### Section 02: Statistical Analysis
 
+1. What factors are significantly related to the number of store purchases?
+2. Does US fare significantly better than the Rest of the World in terms of total purchases?
+3. Your supervisor insists that people who buy gold are more conservative. Therefore, people who spent an above average amount on gold in the last 2 years would have more in store purchases. Justify or refute this statement using an appropriate statistical test
+4. Fish has Omega 3 fatty acids which are good for the brain. Accordingly, do "Married PhD candidates" have a significant relation with amount spent on fish? What other factors are significantly related to amount spent on fish? (Hint: use your knowledge of interaction variables/effects)
+5. Is there a significant relationship between geographical regional and success of a campaign?
+
+To answer question 1 we can regress the number of store purchases on age, education, marital status, income, number of kids and teenagers at home and country. Also a second regression could include the offers the costumer took. A third regression could also include an indicator variable for each type of product to identify which products are acquired in a store. A count data model is useful to model the probabilities related to the event happening. 
+
+```{r}
+marketing_ready <- marketing_ready %>% 
+  mutate(wine = factor(ifelse(MntWines > 0, 1, 0)),
+         fruits = factor(ifelse(MntFruits > 0, 1, 0)),
+         meat = factor(ifelse(MntMeatProducts > 0, 1, 0)),
+         fish = factor(ifelse(MntFishProducts > 0, 1, 0)),
+         sweet = factor(ifelse(MntSweetProducts > 0, 1, 0)),
+         gold = factor(ifelse(MntGoldProds > 0, 1, 0)),
+         store_purchase = factor(ifelse(NumStorePurchases > 0, 1,0)))
+
+store_ols1 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, data = marketing_ready)
+store_ols2 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response, data = marketing_ready)
+store_ols3 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, data = marketing_ready)
+store_negbin1 <- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = negative.binomial(theta = 1), data = marketing_ready)
+stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = "text", align = TRUE, no.space = TRUE)
+```
+Both models hint us that the factors driven store purchases are kids and teenagers at home, income, age, the offer accepted at the moment of the purchase and the product that the costumer buys. For the count model, the excess of zeros might cause problems for the estimation of the parameters. It is a good idea to test a hurdle-zero model to asses for this characteristic. 
+
+```{r}
+store_hurdle <- hurdle(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, dist = "negbin", zero.dist = "negbin", data = marketing_ready)
+stargazer(store_hurdle, type = "text")
+```
