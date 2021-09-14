@@ -273,48 +273,55 @@ $(document).ready(function () {
 marketing_data &lt;- readr::read_csv(&quot;marketing_data.csv&quot;)</code></pre>
 <p>Simple summary statistics of the data sets to see what variables we have</p>
 <pre class="r"><code>summary(marketing_data)</code></pre>
-<pre><code>##        ID          Year_Birth    Education         Marital_Status        Income         
-##  Min.   :    0   Min.   :1893   Length:2240        Length:2240        Length:2240       
-##  1st Qu.: 2828   1st Qu.:1959   Class :character   Class :character   Class :character  
-##  Median : 5458   Median :1970   Mode  :character   Mode  :character   Mode  :character  
-##  Mean   : 5592   Mean   :1969                                                           
-##  3rd Qu.: 8428   3rd Qu.:1977                                                           
-##  Max.   :11191   Max.   :1996                                                           
-##     Kidhome          Teenhome      Dt_Customer           Recency         MntWines      
-##  Min.   :0.0000   Min.   :0.0000   Length:2240        Min.   : 0.00   Min.   :   0.00  
-##  1st Qu.:0.0000   1st Qu.:0.0000   Class :character   1st Qu.:24.00   1st Qu.:  23.75  
-##  Median :0.0000   Median :0.0000   Mode  :character   Median :49.00   Median : 173.50  
-##  Mean   :0.4442   Mean   :0.5062                      Mean   :49.11   Mean   : 303.94  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000                      3rd Qu.:74.00   3rd Qu.: 504.25  
-##  Max.   :2.0000   Max.   :2.0000                      Max.   :99.00   Max.   :1493.00  
-##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
-##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
-##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
-##  Mean   : 26.3   Mean   : 166.9   Mean   : 37.53   Mean   : 27.06   Mean   : 44.02  
-##  3rd Qu.: 33.0   3rd Qu.: 232.0   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
-##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
-##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
-##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
-##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
-##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
-##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
-##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
-##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
-##   AcceptedCmp3      AcceptedCmp4      AcceptedCmp5      AcceptedCmp1      AcceptedCmp2    
-##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
-##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  
-##  Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000  
-##  Mean   :0.07277   Mean   :0.07455   Mean   :0.07277   Mean   :0.06429   Mean   :0.01339  
-##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  
-##  Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  
-##     Response         Complain          Country         
-##  Min.   :0.0000   Min.   :0.000000   Length:2240       
-##  1st Qu.:0.0000   1st Qu.:0.000000   Class :character  
-##  Median :0.0000   Median :0.000000   Mode  :character  
-##  Mean   :0.1491   Mean   :0.009375                     
-##  3rd Qu.:0.0000   3rd Qu.:0.000000                     
-##  Max.   :1.0000   Max.   :1.000000</code></pre>
+<pre><code>##        ID          Year_Birth    Education         Marital_Status    
+##  Min.   :    0   Min.   :1893   Length:2240        Length:2240       
+##  1st Qu.: 2828   1st Qu.:1959   Class :character   Class :character  
+##  Median : 5458   Median :1970   Mode  :character   Mode  :character  
+##  Mean   : 5592   Mean   :1969                                        
+##  3rd Qu.: 8428   3rd Qu.:1977                                        
+##  Max.   :11191   Max.   :1996                                        
+##     Income             Kidhome          Teenhome      Dt_Customer       
+##  Length:2240        Min.   :0.0000   Min.   :0.0000   Length:2240       
+##  Class :character   1st Qu.:0.0000   1st Qu.:0.0000   Class :character  
+##  Mode  :character   Median :0.0000   Median :0.0000   Mode  :character  
+##                     Mean   :0.4442   Mean   :0.5062                     
+##                     3rd Qu.:1.0000   3rd Qu.:1.0000                     
+##                     Max.   :2.0000   Max.   :2.0000                     
+##     Recency         MntWines         MntFruits     MntMeatProducts 
+##  Min.   : 0.00   Min.   :   0.00   Min.   :  0.0   Min.   :   0.0  
+##  1st Qu.:24.00   1st Qu.:  23.75   1st Qu.:  1.0   1st Qu.:  16.0  
+##  Median :49.00   Median : 173.50   Median :  8.0   Median :  67.0  
+##  Mean   :49.11   Mean   : 303.94   Mean   : 26.3   Mean   : 166.9  
+##  3rd Qu.:74.00   3rd Qu.: 504.25   3rd Qu.: 33.0   3rd Qu.: 232.0  
+##  Max.   :99.00   Max.   :1493.00   Max.   :199.0   Max.   :1725.0  
+##  MntFishProducts  MntSweetProducts  MntGoldProds    NumDealsPurchases
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   
+##  1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00   1st Qu.: 1.000   
+##  Median : 12.00   Median :  8.00   Median : 24.00   Median : 2.000   
+##  Mean   : 37.53   Mean   : 27.06   Mean   : 44.02   Mean   : 2.325   
+##  3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00   3rd Qu.: 3.000   
+##  Max.   :259.00   Max.   :263.00   Max.   :362.00   Max.   :15.000   
+##  NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
+##  1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
+##  Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
+##  Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
+##  3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
+##  Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
+##   AcceptedCmp3      AcceptedCmp4      AcceptedCmp5      AcceptedCmp1    
+##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
+##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  
+##  Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000  
+##  Mean   :0.07277   Mean   :0.07455   Mean   :0.07277   Mean   :0.06429  
+##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+##  Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  
+##   AcceptedCmp2        Response         Complain          Country         
+##  Min.   :0.00000   Min.   :0.0000   Min.   :0.000000   Length:2240       
+##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.000000   Class :character  
+##  Median :0.00000   Median :0.0000   Median :0.000000   Mode  :character  
+##  Mean   :0.01339   Mean   :0.1491   Mean   :0.009375                     
+##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.000000                     
+##  Max.   :1.00000   Max.   :1.0000   Max.   :1.000000</code></pre>
 <pre class="r"><code>str(marketing_data)</code></pre>
 <pre><code>## spec_tbl_df [2,240 x 28] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ ID                 : num [1:2240] 1826 1 10476 1386 5371 ...
@@ -422,127 +429,144 @@ marketing_data &lt;- readr::read_csv(&quot;marketing_data.csv&quot;)</code></pre
          Age = 2021 - Year_Birth)
 marketing</code></pre>
 <pre><code>## # A tibble: 2,240 x 29
-##       ID Year_Birth Education  Marital_Status Income Kidhome Teenhome Dt_Customer Recency
-##    &lt;dbl&gt;      &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;           &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;        &lt;dbl&gt;
-##  1  1826       1970 Graduation Divorced        84835       0        0 2014-06-16        0
-##  2     1       1961 Graduation Single          57091       0        0 2014-06-15        0
-##  3 10476       1958 Graduation Married         67267       0        1 2014-05-13        0
-##  4  1386       1967 Graduation Together        32474       1        1 2014-05-11        0
-##  5  5371       1989 Graduation Single          21474       1        0 2014-04-08        0
-##  6  7348       1958 PhD        Single          71691       0        0 2014-03-17        0
-##  7  4073       1954 2n Cycle   Married         63564       0        0 2014-01-29        0
-##  8  1991       1967 Graduation Together        44931       0        1 2014-01-18        0
-##  9  4047       1954 PhD        Married         65324       0        1 2014-01-11        0
-## 10  9477       1954 PhD        Married         65324       0        1 2014-01-11        0
-## # ... with 2,230 more rows, and 20 more variables: MntWines &lt;dbl&gt;, MntFruits &lt;dbl&gt;,
-## #   MntMeatProducts &lt;dbl&gt;, MntFishProducts &lt;dbl&gt;, MntSweetProducts &lt;dbl&gt;, MntGoldProds &lt;dbl&gt;,
+##       ID Year_Birth Education  Marital_Status Income Kidhome Teenhome Dt_Customer
+##    &lt;dbl&gt;      &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;           &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;date&gt;     
+##  1  1826       1970 Graduation Divorced        84835       0        0 2014-06-16 
+##  2     1       1961 Graduation Single          57091       0        0 2014-06-15 
+##  3 10476       1958 Graduation Married         67267       0        1 2014-05-13 
+##  4  1386       1967 Graduation Together        32474       1        1 2014-05-11 
+##  5  5371       1989 Graduation Single          21474       1        0 2014-04-08 
+##  6  7348       1958 PhD        Single          71691       0        0 2014-03-17 
+##  7  4073       1954 2n Cycle   Married         63564       0        0 2014-01-29 
+##  8  1991       1967 Graduation Together        44931       0        1 2014-01-18 
+##  9  4047       1954 PhD        Married         65324       0        1 2014-01-11 
+## 10  9477       1954 PhD        Married         65324       0        1 2014-01-11 
+## # ... with 2,230 more rows, and 21 more variables: Recency &lt;dbl&gt;,
+## #   MntWines &lt;dbl&gt;, MntFruits &lt;dbl&gt;, MntMeatProducts &lt;dbl&gt;,
+## #   MntFishProducts &lt;dbl&gt;, MntSweetProducts &lt;dbl&gt;, MntGoldProds &lt;dbl&gt;,
 ## #   NumDealsPurchases &lt;dbl&gt;, NumWebPurchases &lt;dbl&gt;, NumCatalogPurchases &lt;dbl&gt;,
-## #   NumStorePurchases &lt;dbl&gt;, NumWebVisitsMonth &lt;dbl&gt;, AcceptedCmp3 &lt;fct&gt;, AcceptedCmp4 &lt;fct&gt;,
-## #   AcceptedCmp5 &lt;fct&gt;, AcceptedCmp1 &lt;fct&gt;, AcceptedCmp2 &lt;fct&gt;, Response &lt;fct&gt;,
-## #   Complain &lt;dbl&gt;, Country &lt;fct&gt;, Age &lt;dbl&gt;</code></pre>
+## #   NumStorePurchases &lt;dbl&gt;, NumWebVisitsMonth &lt;dbl&gt;, AcceptedCmp3 &lt;fct&gt;,
+## #   AcceptedCmp4 &lt;fct&gt;, AcceptedCmp5 &lt;fct&gt;, AcceptedCmp1 &lt;fct&gt;,
+## #   AcceptedCmp2 &lt;fct&gt;, Response &lt;fct&gt;, Complain &lt;dbl&gt;, Country &lt;fct&gt;, ...</code></pre>
 <p>The raw the data set now looks better. But there are some NA’s. Let’s investigate them.</p>
 <pre class="r"><code>summary(marketing)</code></pre>
-<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income      
-##  Min.   :    0   Min.   :1893   2n Cycle  : 203   Married :864    Min.   :  1730  
-##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:580    1st Qu.: 35303  
-##  Median : 5458   Median :1970   Graduation:1127   Single  :480    Median : 51382  
-##  Mean   : 5592   Mean   :1969   Master    : 370   Divorced:232    Mean   : 52247  
-##  3rd Qu.: 8428   3rd Qu.:1977   PhD       : 486   Widow   : 77    3rd Qu.: 68522  
-##  Max.   :11191   Max.   :1996                     Alone   :  3    Max.   :666666  
-##                                                   (Other) :  4    NA&#39;s   :24      
-##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines      
-##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.00  
-##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  23.75  
-##  Median :0.0000   Median :0.0000   Median :2013-07-08   Median :49.00   Median : 173.50  
-##  Mean   :0.4442   Mean   :0.5062   Mean   :2013-07-10   Mean   :49.11   Mean   : 303.94  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 504.25  
-##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.00  
-##                                                                                          
-##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
-##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
-##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
-##  Mean   : 26.3   Mean   : 166.9   Mean   : 37.53   Mean   : 27.06   Mean   : 44.02  
-##  3rd Qu.: 33.0   3rd Qu.: 232.0   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
-##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
-##                                                                                     
-##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
-##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
-##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
-##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
-##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
-##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
-##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
-##                                                                                            
-##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
-##  0:2077       0:2073       0:2077       0:2096       0:2210       0:1906   Min.   :0.000000  
-##  1: 163       1: 167       1: 163       1: 144       1:  30       1: 334   1st Qu.:0.000000  
-##                                                                            Median :0.000000  
-##                                                                            Mean   :0.009375  
-##                                                                            3rd Qu.:0.000000  
-##                                                                            Max.   :1.000000  
-##                                                                                              
-##     Country          Age        
-##  SP     :1095   Min.   : 25.00  
-##  SA     : 337   1st Qu.: 44.00  
-##  CA     : 268   Median : 51.00  
-##  AUS    : 160   Mean   : 52.19  
-##  IND    : 148   3rd Qu.: 62.00  
-##  GER    : 120   Max.   :128.00  
-##  (Other): 112</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status
+##  Min.   :    0   Min.   :1893   2n Cycle  : 203   Married :864   
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:580   
+##  Median : 5458   Median :1970   Graduation:1127   Single  :480   
+##  Mean   : 5592   Mean   :1969   Master    : 370   Divorced:232   
+##  3rd Qu.: 8428   3rd Qu.:1977   PhD       : 486   Widow   : 77   
+##  Max.   :11191   Max.   :1996                     Alone   :  3   
+##                                                   (Other) :  4   
+##      Income          Kidhome          Teenhome       Dt_Customer        
+##  Min.   :  1730   Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30  
+##  1st Qu.: 35303   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16  
+##  Median : 51382   Median :0.0000   Median :0.0000   Median :2013-07-08  
+##  Mean   : 52247   Mean   :0.4442   Mean   :0.5062   Mean   :2013-07-10  
+##  3rd Qu.: 68522   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30  
+##  Max.   :666666   Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29  
+##  NA&#39;s   :24                                                             
+##     Recency         MntWines         MntFruits     MntMeatProducts 
+##  Min.   : 0.00   Min.   :   0.00   Min.   :  0.0   Min.   :   0.0  
+##  1st Qu.:24.00   1st Qu.:  23.75   1st Qu.:  1.0   1st Qu.:  16.0  
+##  Median :49.00   Median : 173.50   Median :  8.0   Median :  67.0  
+##  Mean   :49.11   Mean   : 303.94   Mean   : 26.3   Mean   : 166.9  
+##  3rd Qu.:74.00   3rd Qu.: 504.25   3rd Qu.: 33.0   3rd Qu.: 232.0  
+##  Max.   :99.00   Max.   :1493.00   Max.   :199.0   Max.   :1725.0  
+##                                                                    
+##  MntFishProducts  MntSweetProducts  MntGoldProds    NumDealsPurchases
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   
+##  1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00   1st Qu.: 1.000   
+##  Median : 12.00   Median :  8.00   Median : 24.00   Median : 2.000   
+##  Mean   : 37.53   Mean   : 27.06   Mean   : 44.02   Mean   : 2.325   
+##  3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00   3rd Qu.: 3.000   
+##  Max.   :259.00   Max.   :263.00   Max.   :362.00   Max.   :15.000   
+##                                                                      
+##  NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
+##  1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
+##  Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
+##  Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
+##  3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
+##  Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
+##                                                                          
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response
+##  0:2077       0:2073       0:2077       0:2096       0:2210       0:1906  
+##  1: 163       1: 167       1: 163       1: 144       1:  30       1: 334  
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##     Complain           Country          Age        
+##  Min.   :0.000000   SP     :1095   Min.   : 25.00  
+##  1st Qu.:0.000000   SA     : 337   1st Qu.: 44.00  
+##  Median :0.000000   CA     : 268   Median : 51.00  
+##  Mean   :0.009375   AUS    : 160   Mean   : 52.19  
+##  3rd Qu.:0.000000   IND    : 148   3rd Qu.: 62.00  
+##  Max.   :1.000000   GER    : 120   Max.   :128.00  
+##                     (Other): 112</code></pre>
 <p>There are 24 NA’s for the income variable. We could substitute them by the mean of the income depending on their education. We could also delete them. Let’s try both approaches and compare the results.</p>
 <pre class="r"><code>marketing_imp &lt;- marketing %&gt;% 
   group_by(Education) %&gt;% 
   mutate(Income = ifelse(is.na(Income), mean(Income, na.rm = TRUE), Income))
 summary(marketing_imp)</code></pre>
-<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income      
-##  Min.   :    0   Min.   :1893   2n Cycle  : 203   Married :864    Min.   :  1730  
-##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:580    1st Qu.: 35539  
-##  Median : 5458   Median :1970   Graduation:1127   Single  :480    Median : 51610  
-##  Mean   : 5592   Mean   :1969   Master    : 370   Divorced:232    Mean   : 52254  
-##  3rd Qu.: 8428   3rd Qu.:1977   PhD       : 486   Widow   : 77    3rd Qu.: 68290  
-##  Max.   :11191   Max.   :1996                     Alone   :  3    Max.   :666666  
-##                                                   (Other) :  4                    
-##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines      
-##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.00  
-##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  23.75  
-##  Median :0.0000   Median :0.0000   Median :2013-07-08   Median :49.00   Median : 173.50  
-##  Mean   :0.4442   Mean   :0.5062   Mean   :2013-07-10   Mean   :49.11   Mean   : 303.94  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 504.25  
-##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.00  
-##                                                                                          
-##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
-##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
-##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
-##  Mean   : 26.3   Mean   : 166.9   Mean   : 37.53   Mean   : 27.06   Mean   : 44.02  
-##  3rd Qu.: 33.0   3rd Qu.: 232.0   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
-##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
-##                                                                                     
-##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
-##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
-##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
-##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
-##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
-##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
-##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
-##                                                                                            
-##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
-##  0:2077       0:2073       0:2077       0:2096       0:2210       0:1906   Min.   :0.000000  
-##  1: 163       1: 167       1: 163       1: 144       1:  30       1: 334   1st Qu.:0.000000  
-##                                                                            Median :0.000000  
-##                                                                            Mean   :0.009375  
-##                                                                            3rd Qu.:0.000000  
-##                                                                            Max.   :1.000000  
-##                                                                                              
-##     Country          Age        
-##  SP     :1095   Min.   : 25.00  
-##  SA     : 337   1st Qu.: 44.00  
-##  CA     : 268   Median : 51.00  
-##  AUS    : 160   Mean   : 52.19  
-##  IND    : 148   3rd Qu.: 62.00  
-##  GER    : 120   Max.   :128.00  
-##  (Other): 112</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status
+##  Min.   :    0   Min.   :1893   2n Cycle  : 203   Married :864   
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:580   
+##  Median : 5458   Median :1970   Graduation:1127   Single  :480   
+##  Mean   : 5592   Mean   :1969   Master    : 370   Divorced:232   
+##  3rd Qu.: 8428   3rd Qu.:1977   PhD       : 486   Widow   : 77   
+##  Max.   :11191   Max.   :1996                     Alone   :  3   
+##                                                   (Other) :  4   
+##      Income          Kidhome          Teenhome       Dt_Customer        
+##  Min.   :  1730   Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30  
+##  1st Qu.: 35539   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16  
+##  Median : 51610   Median :0.0000   Median :0.0000   Median :2013-07-08  
+##  Mean   : 52254   Mean   :0.4442   Mean   :0.5062   Mean   :2013-07-10  
+##  3rd Qu.: 68290   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30  
+##  Max.   :666666   Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29  
+##                                                                         
+##     Recency         MntWines         MntFruits     MntMeatProducts 
+##  Min.   : 0.00   Min.   :   0.00   Min.   :  0.0   Min.   :   0.0  
+##  1st Qu.:24.00   1st Qu.:  23.75   1st Qu.:  1.0   1st Qu.:  16.0  
+##  Median :49.00   Median : 173.50   Median :  8.0   Median :  67.0  
+##  Mean   :49.11   Mean   : 303.94   Mean   : 26.3   Mean   : 166.9  
+##  3rd Qu.:74.00   3rd Qu.: 504.25   3rd Qu.: 33.0   3rd Qu.: 232.0  
+##  Max.   :99.00   Max.   :1493.00   Max.   :199.0   Max.   :1725.0  
+##                                                                    
+##  MntFishProducts  MntSweetProducts  MntGoldProds    NumDealsPurchases
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   
+##  1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00   1st Qu.: 1.000   
+##  Median : 12.00   Median :  8.00   Median : 24.00   Median : 2.000   
+##  Mean   : 37.53   Mean   : 27.06   Mean   : 44.02   Mean   : 2.325   
+##  3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00   3rd Qu.: 3.000   
+##  Max.   :259.00   Max.   :263.00   Max.   :362.00   Max.   :15.000   
+##                                                                      
+##  NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000   Min.   : 0.000      Min.   : 0.00     Min.   : 0.000   
+##  1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.00     1st Qu.: 3.000   
+##  Median : 4.000   Median : 2.000      Median : 5.00     Median : 6.000   
+##  Mean   : 4.085   Mean   : 2.662      Mean   : 5.79     Mean   : 5.317   
+##  3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.00     3rd Qu.: 7.000   
+##  Max.   :27.000   Max.   :28.000      Max.   :13.00     Max.   :20.000   
+##                                                                          
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response
+##  0:2077       0:2073       0:2077       0:2096       0:2210       0:1906  
+##  1: 163       1: 167       1: 163       1: 144       1:  30       1: 334  
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##     Complain           Country          Age        
+##  Min.   :0.000000   SP     :1095   Min.   : 25.00  
+##  1st Qu.:0.000000   SA     : 337   1st Qu.: 44.00  
+##  Median :0.000000   CA     : 268   Median : 51.00  
+##  Mean   :0.009375   AUS    : 160   Mean   : 52.19  
+##  3rd Qu.:0.000000   IND    : 148   3rd Qu.: 62.00  
+##  Max.   :1.000000   GER    : 120   Max.   :128.00  
+##                     (Other): 112</code></pre>
 <p>No more NA’s. Now we can start an uni-variate analysis to check for implausible values and outliers. Age and income are already causing me suspicious. Maximum value of Age is 128 years old with a mean of 52 and a 75% quantile of 62, probably this person of 128 is an outlier or just a mistake when writing the dataset. For income the maximum value is $666,666 per year, with a mean of $52,254 and 75% of the participants earn less than $68,290. The maximum value is about 10 times higher. The number itself its already suspicious as it is a sequence of six sixes. It is very likely that this is not a real person. But we analyze it.</p>
 <pre class="r"><code>hist_age &lt;- marketing_imp %&gt;% 
   ggplot(aes(Age))+
@@ -550,7 +574,7 @@ summary(marketing_imp)</code></pre>
   labs(title = &quot;Age Histogram&quot;)+
   ylab(NULL)
 hist_age</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-7-1.png" width="1440" /></p>
 <pre class="r"><code>sum(marketing_imp$Age &gt; 100)</code></pre>
 <pre><code>## [1] 3</code></pre>
 <p>Three participants older than 100 years old. Since this is a digital commerce, I will drop these observations. It is unlikely that the people in this age buy online.</p>
@@ -561,73 +585,81 @@ hist_age</code></pre>
   ylab(NULL)
 require(scales)
 hist_income + scale_x_continuous(labels = comma)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-9-1.png" width="1440" /></p>
 <pre class="r"><code>sum(marketing_imp$Income &gt; 100000 )</code></pre>
 <pre><code>## [1] 13</code></pre>
 <p>There are 13 participants that earn more than $100,000 dollars per year. I will also drop these observations as they might induce noise to the analyses.</p>
 <pre class="r"><code>marketing_ready &lt;- marketing_imp %&gt;% 
   filter(Income &lt; 100000 &amp; Age &lt; 100)
 summary(marketing_ready)</code></pre>
-<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
-##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Married :861    Min.   : 1730  
-##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:573    1st Qu.:35376  
-##  Median : 5458   Median :1970   Graduation:1121   Single  :477    Median :51412  
-##  Mean   : 5589   Mean   :1969   Master    : 369   Divorced:229    Mean   :51515  
-##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 479   Widow   : 77    3rd Qu.:67911  
-##  Max.   :11191   Max.   :1996                     Alone   :  3    Max.   :98777  
-##                                                   (Other) :  4                   
-##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines     
-##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.0  
-##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  24.0  
-##  Median :0.0000   Median :0.0000   Median :2013-07-09   Median :49.50   Median : 176.0  
-##  Mean   :0.4456   Mean   :0.5085   Mean   :2013-07-10   Mean   :49.14   Mean   : 304.5  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 504.2  
-##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.0  
-##                                                                                         
-##    MntFruits      MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
-##  Min.   :  0.00   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  1.75   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
-##  Median :  8.00   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
-##  Mean   : 26.23   Mean   : 165.3   Mean   : 37.57   Mean   : 26.91   Mean   : 43.95  
-##  3rd Qu.: 33.00   3rd Qu.: 231.2   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
-##  Max.   :199.00   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
-##                                                                                      
-##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
-##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
-##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
-##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
-##  Mean   : 2.325    Mean   : 4.085   Mean   : 2.627      Mean   : 5.804    Mean   : 5.341   
-##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
-##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
-##                                                                                            
-##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
-##  0:2061       0:2060       0:2066       0:2084       0:2195       0:1894   Min.   :0.000000  
-##  1: 163       1: 164       1: 158       1: 140       1:  29       1: 330   1st Qu.:0.000000  
-##                                                                            Median :0.000000  
-##                                                                            Mean   :0.008993  
-##                                                                            3rd Qu.:0.000000  
-##                                                                            Max.   :1.000000  
-##                                                                                              
-##     Country          Age       
-##  SP     :1089   Min.   :25.00  
-##  SA     : 332   1st Qu.:44.00  
-##  CA     : 266   Median :51.00  
-##  AUS    : 160   Mean   :52.11  
-##  IND    : 146   3rd Qu.:62.00  
-##  GER    : 120   Max.   :81.00  
-##  (Other): 111</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status
+##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Married :861   
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Together:573   
+##  Median : 5458   Median :1970   Graduation:1121   Single  :477   
+##  Mean   : 5589   Mean   :1969   Master    : 369   Divorced:229   
+##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 479   Widow   : 77   
+##  Max.   :11191   Max.   :1996                     Alone   :  3   
+##                                                   (Other) :  4   
+##      Income         Kidhome          Teenhome       Dt_Customer        
+##  Min.   : 1730   Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30  
+##  1st Qu.:35376   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16  
+##  Median :51412   Median :0.0000   Median :0.0000   Median :2013-07-09  
+##  Mean   :51515   Mean   :0.4456   Mean   :0.5085   Mean   :2013-07-10  
+##  3rd Qu.:67911   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30  
+##  Max.   :98777   Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29  
+##                                                                        
+##     Recency         MntWines        MntFruits      MntMeatProducts 
+##  Min.   : 0.00   Min.   :   0.0   Min.   :  0.00   Min.   :   0.0  
+##  1st Qu.:24.00   1st Qu.:  24.0   1st Qu.:  1.75   1st Qu.:  16.0  
+##  Median :49.50   Median : 176.0   Median :  8.00   Median :  67.0  
+##  Mean   :49.14   Mean   : 304.5   Mean   : 26.23   Mean   : 165.3  
+##  3rd Qu.:74.00   3rd Qu.: 504.2   3rd Qu.: 33.00   3rd Qu.: 231.2  
+##  Max.   :99.00   Max.   :1493.0   Max.   :199.00   Max.   :1725.0  
+##                                                                    
+##  MntFishProducts  MntSweetProducts  MntGoldProds    NumDealsPurchases
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   
+##  1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00   1st Qu.: 1.000   
+##  Median : 12.00   Median :  8.00   Median : 24.00   Median : 2.000   
+##  Mean   : 37.57   Mean   : 26.91   Mean   : 43.95   Mean   : 2.325   
+##  3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00   3rd Qu.: 3.000   
+##  Max.   :259.00   Max.   :263.00   Max.   :362.00   Max.   :15.000   
+##                                                                      
+##  NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
+##  1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
+##  Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
+##  Mean   : 4.085   Mean   : 2.627      Mean   : 5.804    Mean   : 5.341   
+##  3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
+##  Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
+##                                                                          
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response
+##  0:2061       0:2060       0:2066       0:2084       0:2195       0:1894  
+##  1: 163       1: 164       1: 158       1: 140       1:  29       1: 330  
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##     Complain           Country          Age       
+##  Min.   :0.000000   SP     :1089   Min.   :25.00  
+##  1st Qu.:0.000000   SA     : 332   1st Qu.:44.00  
+##  Median :0.000000   CA     : 266   Median :51.00  
+##  Mean   :0.008993   AUS    : 160   Mean   :52.11  
+##  3rd Qu.:0.000000   IND    : 146   3rd Qu.:62.00  
+##  Max.   :1.000000   GER    : 120   Max.   :81.00  
+##                     (Other): 111</code></pre>
 <pre class="r"><code>marketing_ready %&gt;% 
   ggplot(aes(Age))+
   geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
   labs(title = &quot;Age Histogram&quot;)+
   ylab(NULL)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-12-1.png" width="1440" /></p>
 <pre class="r"><code>marketing_ready %&gt;% 
   ggplot(aes(Income))+
   geom_histogram(bins = 50, fill = &quot;#24B0B7&quot;, alpha = 0.8)+
   labs(title = &quot;Income Histogram&quot;)+
   ylab(NULL) + scale_x_continuous(labels = comma)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-13-1.png" width="1440" /></p>
 <p>Both variables look better now. Now lets look at the distribution of the remaining continous variables and categorical variables.</p>
 <pre class="r"><code>hist_wines &lt;- marketing_ready %&gt;% 
   ggplot(aes(MntWines))+
@@ -667,7 +699,7 @@ hist_GoldProds &lt;- marketing_ready %&gt;%
 
 grid.arrange(hist_wines, hist_fruits, hist_MeatProducts, hist_FishProducts,
              hist_SweetProducts, hist_GoldProds, ncol=3)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-14-1.png" width="672" /> There are a lot of zeros for the distribution of the amount spend on each of the products. A few outliers in the expenditure behavior of the costumers. For example, the meat products histogram shows a point at the right of the distribution with more than 1,500 USD spent in the last two years. The sweet products histogram shows a similar behavior. The gold products are more sold, they have at least higher number of observations with one dollar spent.</p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-14-1.png" width="1440" /> There are a lot of zeros for the distribution of the amount spend on each of the products. A few outliers in the expenditure behavior of the costumers. For example, the meat products histogram shows a point at the right of the distribution with more than 1,500 USD spent in the last two years. The sweet products histogram shows a similar behavior. The gold products are more sold, they have at least higher number of observations with one dollar spent.</p>
 <pre class="r"><code>par(mfrow = c(3,3))
 plot(marketing_ready$Education, main = &quot;Education&quot;)
 plot(marketing_ready$Marital_Status, main = &quot;Marital Status&quot;)
@@ -678,7 +710,7 @@ plot(marketing_ready$AcceptedCmp3, main = &quot;Offer 3rd Campaign Success&quot;
 plot(marketing_ready$AcceptedCmp4, main = &quot;Offer 4th Campaign Success&quot;)
 plot(marketing_ready$AcceptedCmp1, main = &quot;Offer 5th Campaign Success&quot;)
 plot(marketing_ready$Response, main = &quot;Last offer Success&quot;)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-15-1.png" width="1440" /></p>
 <pre class="r"><code>table(marketing_ready$Marital_Status)</code></pre>
 <pre><code>## 
 ##   Absurd    Alone Divorced  Married   Single Together    Widow     YOLO 
@@ -693,114 +725,130 @@ table(marketing_ready$Marital_Status)</code></pre>
   filter(Marital_Status != &quot;Absurd&quot; &amp; Marital_Status != &quot;YOLO&quot;) %&gt;% 
   mutate(Marital_Status = factor(Marital_Status))
 summary(marketing_ready)</code></pre>
-<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
-##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229    Min.   : 1730  
-##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Married :861    1st Qu.:35336  
-##  Median : 5458   Median :1970   Graduation:1120   Single  :480    Median :51412  
-##  Mean   : 5588   Mean   :1969   Master    : 368   Together:573    Mean   :51499  
-##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 477   Widow   : 77    3rd Qu.:67911  
-##  Max.   :11191   Max.   :1996                                     Max.   :98777  
-##                                                                                  
-##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines     
-##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.0  
-##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  24.0  
-##  Median :0.0000   Median :0.0000   Median :2013-07-09   Median :50.00   Median : 174.5  
-##  Mean   :0.4464   Mean   :0.5086   Mean   :2013-07-10   Mean   :49.18   Mean   : 304.4  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 505.0  
-##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.0  
-##                                                                                         
-##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
-##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
-##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
-##  Mean   : 26.2   Mean   : 165.3   Mean   : 37.45   Mean   : 26.92   Mean   : 43.81  
-##  3rd Qu.: 33.0   3rd Qu.: 231.2   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
-##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
-##                                                                                     
-##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
-##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
-##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
-##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
-##  Mean   : 2.323    Mean   : 4.082   Mean   : 2.624      Mean   : 5.803    Mean   : 5.342   
-##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
-##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
-##                                                                                            
-##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
-##  0:2057       0:2056       0:2063       0:2081       0:2191       0:1892   Min.   :0.000000  
-##  1: 163       1: 164       1: 157       1: 139       1:  29       1: 328   1st Qu.:0.000000  
-##                                                                            Median :0.000000  
-##                                                                            Mean   :0.009009  
-##                                                                            3rd Qu.:0.000000  
-##                                                                            Max.   :1.000000  
-##                                                                                              
-##     Country          Age       
-##  SP     :1089   Min.   :25.00  
-##  SA     : 332   1st Qu.:44.00  
-##  CA     : 264   Median :51.00  
-##  AUS    : 159   Mean   :52.12  
-##  IND    : 145   3rd Qu.:62.00  
-##  GER    : 120   Max.   :81.00  
-##  (Other): 111</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status
+##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229   
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Married :861   
+##  Median : 5458   Median :1970   Graduation:1120   Single  :480   
+##  Mean   : 5588   Mean   :1969   Master    : 368   Together:573   
+##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 477   Widow   : 77   
+##  Max.   :11191   Max.   :1996                                    
+##                                                                  
+##      Income         Kidhome          Teenhome       Dt_Customer        
+##  Min.   : 1730   Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30  
+##  1st Qu.:35336   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16  
+##  Median :51412   Median :0.0000   Median :0.0000   Median :2013-07-09  
+##  Mean   :51499   Mean   :0.4464   Mean   :0.5086   Mean   :2013-07-10  
+##  3rd Qu.:67911   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30  
+##  Max.   :98777   Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29  
+##                                                                        
+##     Recency         MntWines        MntFruits     MntMeatProducts 
+##  Min.   : 0.00   Min.   :   0.0   Min.   :  0.0   Min.   :   0.0  
+##  1st Qu.:24.00   1st Qu.:  24.0   1st Qu.:  1.0   1st Qu.:  16.0  
+##  Median :50.00   Median : 174.5   Median :  8.0   Median :  67.0  
+##  Mean   :49.18   Mean   : 304.4   Mean   : 26.2   Mean   : 165.3  
+##  3rd Qu.:74.00   3rd Qu.: 505.0   3rd Qu.: 33.0   3rd Qu.: 231.2  
+##  Max.   :99.00   Max.   :1493.0   Max.   :199.0   Max.   :1725.0  
+##                                                                   
+##  MntFishProducts  MntSweetProducts  MntGoldProds    NumDealsPurchases
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   
+##  1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00   1st Qu.: 1.000   
+##  Median : 12.00   Median :  8.00   Median : 24.00   Median : 2.000   
+##  Mean   : 37.45   Mean   : 26.92   Mean   : 43.81   Mean   : 2.323   
+##  3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00   3rd Qu.: 3.000   
+##  Max.   :259.00   Max.   :263.00   Max.   :362.00   Max.   :15.000   
+##                                                                      
+##  NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
+##  1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
+##  Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
+##  Mean   : 4.082   Mean   : 2.624      Mean   : 5.803    Mean   : 5.342   
+##  3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
+##  Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
+##                                                                          
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response
+##  0:2057       0:2056       0:2063       0:2081       0:2191       0:1892  
+##  1: 163       1: 164       1: 157       1: 139       1:  29       1: 328  
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##     Complain           Country          Age       
+##  Min.   :0.000000   SP     :1089   Min.   :25.00  
+##  1st Qu.:0.000000   SA     : 332   1st Qu.:44.00  
+##  Median :0.000000   CA     : 264   Median :51.00  
+##  Mean   :0.009009   AUS    : 159   Mean   :52.12  
+##  3rd Qu.:0.000000   IND    : 145   3rd Qu.:62.00  
+##  Max.   :1.000000   GER    : 120   Max.   :81.00  
+##                     (Other): 111</code></pre>
 <p>We could also create a variable for total purchases in the last two years</p>
 <pre class="r"><code>marketing_ready &lt;- marketing_ready %&gt;% 
   mutate(total_purch = MntWines + MntFruits + MntMeatProducts + MntFishProducts + MntSweetProducts + MntGoldProds)
 marketing_ready %&gt;% 
   ggplot(aes(total_purch)) +
   geom_histogram()</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-19-1.png" width="1440" /></p>
 <pre class="r"><code>summary(marketing_ready)</code></pre>
-<pre><code>##        ID          Year_Birth        Education     Marital_Status     Income     
-##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229    Min.   : 1730  
-##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Married :861    1st Qu.:35336  
-##  Median : 5458   Median :1970   Graduation:1120   Single  :480    Median :51412  
-##  Mean   : 5588   Mean   :1969   Master    : 368   Together:573    Mean   :51499  
-##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 477   Widow   : 77    3rd Qu.:67911  
-##  Max.   :11191   Max.   :1996                                     Max.   :98777  
-##                                                                                  
-##     Kidhome          Teenhome       Dt_Customer            Recency         MntWines     
-##  Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30   Min.   : 0.00   Min.   :   0.0  
-##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16   1st Qu.:24.00   1st Qu.:  24.0  
-##  Median :0.0000   Median :0.0000   Median :2013-07-09   Median :50.00   Median : 174.5  
-##  Mean   :0.4464   Mean   :0.5086   Mean   :2013-07-10   Mean   :49.18   Mean   : 304.4  
-##  3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30   3rd Qu.:74.00   3rd Qu.: 505.0  
-##  Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29   Max.   :99.00   Max.   :1493.0  
-##                                                                                         
-##    MntFruits     MntMeatProducts  MntFishProducts  MntSweetProducts  MntGoldProds   
-##  Min.   :  0.0   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
-##  1st Qu.:  1.0   1st Qu.:  16.0   1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00  
-##  Median :  8.0   Median :  67.0   Median : 12.00   Median :  8.00   Median : 24.00  
-##  Mean   : 26.2   Mean   : 165.3   Mean   : 37.45   Mean   : 26.92   Mean   : 43.81  
-##  3rd Qu.: 33.0   3rd Qu.: 231.2   3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00  
-##  Max.   :199.0   Max.   :1725.0   Max.   :259.00   Max.   :263.00   Max.   :362.00  
-##                                                                                     
-##  NumDealsPurchases NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
-##  Min.   : 0.000    Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
-##  1st Qu.: 1.000    1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
-##  Median : 2.000    Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
-##  Mean   : 2.323    Mean   : 4.082   Mean   : 2.624      Mean   : 5.803    Mean   : 5.342   
-##  3rd Qu.: 3.000    3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
-##  Max.   :15.000    Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
-##                                                                                            
-##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response    Complain       
-##  0:2057       0:2056       0:2063       0:2081       0:2191       0:1892   Min.   :0.000000  
-##  1: 163       1: 164       1: 157       1: 139       1:  29       1: 328   1st Qu.:0.000000  
-##                                                                            Median :0.000000  
-##                                                                            Mean   :0.009009  
-##                                                                            3rd Qu.:0.000000  
-##                                                                            Max.   :1.000000  
-##                                                                                              
-##     Country          Age         total_purch    
-##  SP     :1089   Min.   :25.00   Min.   :   5.0  
-##  SA     : 332   1st Qu.:44.00   1st Qu.:  69.0  
-##  CA     : 264   Median :51.00   Median : 395.5  
-##  AUS    : 159   Mean   :52.12   Mean   : 604.1  
-##  IND    : 145   3rd Qu.:62.00   3rd Qu.:1039.2  
-##  GER    : 120   Max.   :81.00   Max.   :2525.0  
-##  (Other): 111</code></pre>
+<pre><code>##        ID          Year_Birth        Education     Marital_Status
+##  Min.   :    0   Min.   :1940   2n Cycle  : 201   Divorced:229   
+##  1st Qu.: 2828   1st Qu.:1959   Basic     :  54   Married :861   
+##  Median : 5458   Median :1970   Graduation:1120   Single  :480   
+##  Mean   : 5588   Mean   :1969   Master    : 368   Together:573   
+##  3rd Qu.: 8422   3rd Qu.:1977   PhD       : 477   Widow   : 77   
+##  Max.   :11191   Max.   :1996                                    
+##                                                                  
+##      Income         Kidhome          Teenhome       Dt_Customer        
+##  Min.   : 1730   Min.   :0.0000   Min.   :0.0000   Min.   :2012-07-30  
+##  1st Qu.:35336   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2013-01-16  
+##  Median :51412   Median :0.0000   Median :0.0000   Median :2013-07-09  
+##  Mean   :51499   Mean   :0.4464   Mean   :0.5086   Mean   :2013-07-10  
+##  3rd Qu.:67911   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2013-12-30  
+##  Max.   :98777   Max.   :2.0000   Max.   :2.0000   Max.   :2014-06-29  
+##                                                                        
+##     Recency         MntWines        MntFruits     MntMeatProducts 
+##  Min.   : 0.00   Min.   :   0.0   Min.   :  0.0   Min.   :   0.0  
+##  1st Qu.:24.00   1st Qu.:  24.0   1st Qu.:  1.0   1st Qu.:  16.0  
+##  Median :50.00   Median : 174.5   Median :  8.0   Median :  67.0  
+##  Mean   :49.18   Mean   : 304.4   Mean   : 26.2   Mean   : 165.3  
+##  3rd Qu.:74.00   3rd Qu.: 505.0   3rd Qu.: 33.0   3rd Qu.: 231.2  
+##  Max.   :99.00   Max.   :1493.0   Max.   :199.0   Max.   :1725.0  
+##                                                                   
+##  MntFishProducts  MntSweetProducts  MntGoldProds    NumDealsPurchases
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   
+##  1st Qu.:  3.00   1st Qu.:  1.00   1st Qu.:  9.00   1st Qu.: 1.000   
+##  Median : 12.00   Median :  8.00   Median : 24.00   Median : 2.000   
+##  Mean   : 37.45   Mean   : 26.92   Mean   : 43.81   Mean   : 2.323   
+##  3rd Qu.: 50.00   3rd Qu.: 33.00   3rd Qu.: 56.00   3rd Qu.: 3.000   
+##  Max.   :259.00   Max.   :263.00   Max.   :362.00   Max.   :15.000   
+##                                                                      
+##  NumWebPurchases  NumCatalogPurchases NumStorePurchases NumWebVisitsMonth
+##  Min.   : 0.000   Min.   : 0.000      Min.   : 0.000    Min.   : 0.000   
+##  1st Qu.: 2.000   1st Qu.: 0.000      1st Qu.: 3.000    1st Qu.: 3.000   
+##  Median : 4.000   Median : 2.000      Median : 5.000    Median : 6.000   
+##  Mean   : 4.082   Mean   : 2.624      Mean   : 5.803    Mean   : 5.342   
+##  3rd Qu.: 6.000   3rd Qu.: 4.000      3rd Qu.: 8.000    3rd Qu.: 7.000   
+##  Max.   :27.000   Max.   :28.000      Max.   :13.000    Max.   :20.000   
+##                                                                          
+##  AcceptedCmp3 AcceptedCmp4 AcceptedCmp5 AcceptedCmp1 AcceptedCmp2 Response
+##  0:2057       0:2056       0:2063       0:2081       0:2191       0:1892  
+##  1: 163       1: 164       1: 157       1: 139       1:  29       1: 328  
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##                                                                           
+##     Complain           Country          Age         total_purch    
+##  Min.   :0.000000   SP     :1089   Min.   :25.00   Min.   :   5.0  
+##  1st Qu.:0.000000   SA     : 332   1st Qu.:44.00   1st Qu.:  69.0  
+##  Median :0.000000   CA     : 264   Median :51.00   Median : 395.5  
+##  Mean   :0.009009   AUS    : 159   Mean   :52.12   Mean   : 604.1  
+##  3rd Qu.:0.000000   IND    : 145   3rd Qu.:62.00   3rd Qu.:1039.2  
+##  Max.   :1.000000   GER    : 120   Max.   :81.00   Max.   :2525.0  
+##                     (Other): 111</code></pre>
 <pre class="r"><code>marketing_ready %&gt;% 
   ggplot(aes(Income, log(total_purch), colour = Country))+
   geom_point()</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="672" /> There is a non-linear relationship between amount spent and income.</p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="1440" /> There is a non-linear relationship between amount spent and income.</p>
 <div id="section-02-statistical-analysis" class="section level3">
 <h3>Section 02: Statistical Analysis</h3>
 <ol style="list-style-type: decimal">
