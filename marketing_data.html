@@ -956,7 +956,95 @@ stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = &quot;text&q
 ## ================================================================================================================
 ## Note:                                                                                *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>The OLS models hint us that the factors driven store purchases are kids and teenagers at home, income, the offer accepted at the moment of the purchase and the product that the costumer buys. The count model confirms these findings. It seems that the second and fourth offer affects positively purchasing in stores. Fish and sweets are the products that also contributes to more purchases. Income follows the same pattern, and surprisingly age contributes negatively to store purchases.</p>
-<p>```</p>
+<p>To answer question 2, lets plot a graph to observe how the country contribution to total purchases.</p>
+<pre class="r"><code>marketing_ready %&gt;% 
+  ggplot(aes(Country, total_purch, fill = Country)) +
+  geom_col() +
+  scale_y_continuous() +
+  coord_flip() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-23-1.png" width="1440" /> By comparing only countries total purchases, Spain is doing better than any other country. However, Spain is also the country with more costumers.</p>
+<pre class="r"><code>summary(marketing_ready$Country)</code></pre>
+<pre><code>##  AUS   CA  GER  IND   ME   SA   SP   US 
+##  159  264  120  145    3  332 1089  108</code></pre>
+<p>Lets use a boxplot to investigate this,</p>
+<pre class="r"><code>marketing_ready %&gt;% 
+  ggplot(aes(total_purch, Country, fill = Country)) +
+  geom_boxplot(outlier.alpha = 0.5) +
+  scale_x_continuous() +
+  scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-25-1.png" width="1440" /> Now we can see that the median of the US is higher than SP. ME is by far the country with more total purchases.</p>
+<pre class="r"><code>marketing_ready %&gt;% 
+  group_by(Country) %&gt;% 
+  mutate(mean_country = mean(total_purch)) %&gt;% 
+  ggplot(aes(Country, mean_country, colour = Country)) +
+  geom_point() +
+  scale_colour_brewer(palette = &quot;Spectral&quot;)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-26-1.png" width="1440" /> In average, the US has a higher total purchases value than SP, IND and AUS but GER and CA are slightly better than US, and ME is better. We can run a regression to see these effects.</p>
+<pre class="r"><code>marketing_country &lt;- marketing_ready %&gt;% 
+  mutate(Country = relevel(Country, ref = &quot;US&quot;))
+
+totalpurch1 &lt;- lm(log(total_purch) ~ Age + Income + I(Income^2) + Country + Kidhome + Teenhome + AcceptedCmp1 + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + Complain, data = marketing_country)
+stargazer(totalpurch1, type = &quot;text&quot;, aling = TRUE, no.space = TRUE)</code></pre>
+<pre><code>## 
+## ===============================================
+##                         Dependent variable:    
+##                     ---------------------------
+##                          log(total_purch)      
+## -----------------------------------------------
+## Age                           -0.003*          
+##                               (0.002)          
+## Income                       0.0001***         
+##                              (0.00000)         
+## I(Income2)                   -0.000***         
+##                               (0.000)          
+## CountryAUS                   -0.218**          
+##                               (0.094)          
+## CountryCA                     -0.141           
+##                               (0.086)          
+## CountryGER                   -0.278***         
+##                               (0.100)          
+## CountryIND                    -0.096           
+##                               (0.096)          
+## CountryME                      0.330           
+##                               (0.441)          
+## CountrySA                     -0.117           
+##                               (0.083)          
+## CountrySP                    -0.169**          
+##                               (0.076)          
+## Kidhome                      -0.661***         
+##                               (0.036)          
+## Teenhome                     -0.138***         
+##                               (0.034)          
+## AcceptedCmp11                 -0.051           
+##                               (0.076)          
+## AcceptedCmp21                 -0.067           
+##                               (0.149)          
+## AcceptedCmp31                 0.160**          
+##                               (0.064)          
+## AcceptedCmp41                0.277***          
+##                               (0.068)          
+## AcceptedCmp51                -0.232***         
+##                               (0.079)          
+## Response1                    0.307***          
+##                               (0.050)          
+## Complain                      -0.127           
+##                               (0.169)          
+## Constant                     3.252***          
+##                               (0.142)          
+## -----------------------------------------------
+## Observations                   2,220           
+## R2                             0.744           
+## Adjusted R2                    0.742           
+## Residual Std. Error      0.751 (df = 2200)     
+## F Statistic         337.264*** (df = 19; 2200) 
+## ===============================================
+## Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01
+## 
+## ====
+## TRUE
+## ----</code></pre>
+<p>What we have found with the regression analysis is that average total purchases in AUS, GER and SP are lower than in the US. In average, AUS total purchases are 21.8% lower compared to the US. Same pattern for GER and SP, 27.8% and 16.9% lower.</p>
 </div>
 </div>
 </div>
