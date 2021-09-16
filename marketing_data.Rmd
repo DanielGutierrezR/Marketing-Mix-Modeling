@@ -14,6 +14,7 @@ library(stargazer)
 library(MASS)
 library(pscl)
 library(lmtest)
+library(ztable)
 theme_set(theme_bw())
 ```
 
@@ -260,8 +261,9 @@ summary(marketing_ready)
 ```
 ```{r}
 marketing_ready %>% 
-  ggplot(aes(Income, log(total_purch), colour = Country))+
-  geom_point()
+  ggplot(aes(Income, log(total_purch)))+
+  geom_point()+
+  geom_smooth()
 ```
 There is a non-linear relationship between amount spent and income.
 
@@ -336,3 +338,43 @@ totalpurch1 <- lm(log(total_purch) ~ Age + Income + I(Income^2) + Country + Kidh
 stargazer(totalpurch1, type = "text", aling = TRUE, no.space = TRUE)
 ```
 What we have found with the regression analysis is that average total purchases in AUS, GER and SP are lower than in the US. In average, AUS total purchases are 21.8% lower compared to the US. Same pattern for GER and SP, 27.8% and 16.9% lower.
+
+To answer question, we create an indicator variable that equals 1 whether the amount spent on gold is higher than the average or not. Then regress the number of store purchases on this indicator variable. The mean of the amount spend on gold is 43.81. 
+
+```{r}
+summary(marketing_ready$MntGoldProds)
+```
+
+```{r}
+marketing_ready <- marketing_ready %>% 
+  mutate(gold_above = as.factor(ifelse(MntGoldProds > 45, 1, 0)))
+summary(marketing_ready$gold_above)
+
+above1 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + gold_above, data = marketing_ready)
+stargazer(above1, type = "text", no.space = TRUE, align = TRUE)
+```
+The result of the regression confirms the supervisor's hypothesis. Among gold buyers, those who buy more than the average go more often to the store.
+
+Lets now analyze question 4. To investigate that, I will run a regression interacting marital status and education. To answer it correctly, the reference category for marital status is "married" and for education "PhD". In this sense, we can compare the categories with the other ones.
+
+```{r}
+marketing_ready <- marketing_ready %>% 
+  mutate(Marital_Status = relevel(Marital_Status, ref = "Married"),
+         Education = relevel(Education, ref = "PhD"))
+inter1 <- lm(MntFishProducts ~ 0 + Age + Education + Marital_Status + Education*Marital_Status + Income + I(Income^2) + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response, data = marketing_ready)
+stargazer(inter1, type = "text", no.space = TRUE, align = TRUE)
+```
+The results of the regression tell us that married PhD candidates only buy more fish than graduated divorced participants. Widow participants tend to spend more in fish products. In general, divorced participants buy more fish too. Kids and teens at home decrease the amount spent in fish. Those who accepted offer campaign 2 buy more fish. Accepting campaigns 4 and5 spend less in fish than those who did not accept these campaigns. 
+
+To answer question 5, we can explore graphically the different campaigns.
+```{r}
+par(mfrow = c(2,3))
+plot(marketing_ready$AcceptedCmp1 ~ marketing_ready$Country, main = "Campaing 1", ylab = "Accepted Offer", xlab = "Country")
+plot(marketing_ready$AcceptedCmp2 ~ marketing_ready$Country, main = "Campaing 2", ylab = NULL, xlab = "Country")
+title(ylab = NULL)
+plot(marketing_ready$AcceptedCmp3 ~ marketing_ready$Country, main = "Campaing 3", ylab = NULL, xlab = "Country")
+plot(marketing_ready$AcceptedCmp4 ~ marketing_ready$Country, main = "Campaing 4", ylab = "Accepted Offer", xlab = "Country")
+plot(marketing_ready$AcceptedCmp5 ~ marketing_ready$Country, main = "Campaing 5", ylab = NULL, xlab = "Country")
+plot(marketing_ready$Response ~ marketing_ready$Country, main = "Last Campaign", ylab = NULL, xlab = "Country")
+```
+

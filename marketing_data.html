@@ -846,8 +846,9 @@ marketing_ready %&gt;%
 ##  Max.   :1.000000   GER    : 120   Max.   :81.00   Max.   :2525.0  
 ##                     (Other): 111</code></pre>
 <pre class="r"><code>marketing_ready %&gt;% 
-  ggplot(aes(Income, log(total_purch), colour = Country))+
-  geom_point()</code></pre>
+  ggplot(aes(Income, log(total_purch)))+
+  geom_point()+
+  geom_smooth()</code></pre>
 <p><img src="marketing_data_files/figure-html/unnamed-chunk-21-1.png" width="1440" /> There is a non-linear relationship between amount spent and income.</p>
 <div id="section-02-statistical-analysis" class="section level3">
 <h3>Section 02: Statistical Analysis</h3>
@@ -1045,6 +1046,203 @@ stargazer(totalpurch1, type = &quot;text&quot;, aling = TRUE, no.space = TRUE)</
 ## TRUE
 ## ----</code></pre>
 <p>What we have found with the regression analysis is that average total purchases in AUS, GER and SP are lower than in the US. In average, AUS total purchases are 21.8% lower compared to the US. Same pattern for GER and SP, 27.8% and 16.9% lower.</p>
+<p>To answer question, we create an indicator variable that equals 1 whether the amount spent on gold is higher than the average or not. Then regress the number of store purchases on this indicator variable. The mean of the amount spend on gold is 43.81.</p>
+<pre class="r"><code>summary(marketing_ready$MntGoldProds)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    9.00   24.00   43.81   56.00  362.00</code></pre>
+<pre class="r"><code>marketing_ready &lt;- marketing_ready %&gt;% 
+  mutate(gold_above = as.factor(ifelse(MntGoldProds &gt; 45, 1, 0)))
+summary(marketing_ready$gold_above)</code></pre>
+<pre><code>##    0    1 
+## 1549  671</code></pre>
+<pre class="r"><code>above1 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + gold_above, data = marketing_ready)
+stargazer(above1, type = &quot;text&quot;, no.space = TRUE, align = TRUE)</code></pre>
+<pre><code>## 
+## ==================================================
+##                            Dependent variable:    
+##                        ---------------------------
+##                             NumStorePurchases     
+## --------------------------------------------------
+## Age                             -0.011**          
+##                                  (0.005)          
+## EducationBasic                    0.071           
+##                                  (0.352)          
+## EducationGraduation              -0.138           
+##                                  (0.173)          
+## EducationMaster                  -0.034           
+##                                  (0.199)          
+## EducationPhD                      0.026           
+##                                  (0.194)          
+## Marital_StatusMarried             0.137           
+##                                  (0.169)          
+## Marital_StatusSingle              0.017           
+##                                  (0.182)          
+## Marital_StatusTogether           -0.008           
+##                                  (0.176)          
+## Marital_StatusWidow              -0.011           
+##                                  (0.298)          
+## Income                          0.0001***         
+##                                 (0.00000)         
+## Kidhome                         -1.081***         
+##                                  (0.107)          
+## Teenhome                          0.002           
+##                                  (0.098)          
+## CountryCA                         0.165           
+##                                  (0.225)          
+## CountryGER                        0.187           
+##                                  (0.272)          
+## CountryIND                        0.077           
+##                                  (0.259)          
+## CountryME                         0.097           
+##                                  (1.310)          
+## CountrySA                         0.307           
+##                                  (0.216)          
+## CountrySP                         0.289           
+##                                  (0.191)          
+## CountryUS                         0.438           
+##                                  (0.280)          
+## AcceptedCmp11                   -0.447**          
+##                                  (0.225)          
+## AcceptedCmp21                     0.546           
+##                                  (0.446)          
+## AcceptedCmp31                   -0.582***         
+##                                  (0.192)          
+## AcceptedCmp41                    0.506**          
+##                                  (0.203)          
+## AcceptedCmp51                   -0.814***         
+##                                  (0.227)          
+## Response1                       -0.583***         
+##                                  (0.153)          
+## gold_above1                     0.878***          
+##                                  (0.118)          
+## Constant                        1.753***          
+##                                  (0.397)          
+## --------------------------------------------------
+## Observations                      2,220           
+## R2                                0.528           
+## Adjusted R2                       0.522           
+## Residual Std. Error         2.236 (df = 2193)     
+## F Statistic             94.207*** (df = 26; 2193) 
+## ==================================================
+## Note:                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>The result of the regression confirms the supervisor’s hypothesis. Among gold buyers, those who buy more than the average go more often to the store.</p>
+<p>Lets now analyze question 4. To investigate that, I will run a regression interacting marital status and education. To answer it correctly, the reference category for marital status is “married” and for education “PhD”. In this sense, we can compare the categories with the other ones.</p>
+<pre class="r"><code>marketing_ready &lt;- marketing_ready %&gt;% 
+  mutate(Marital_Status = relevel(Marital_Status, ref = &quot;Married&quot;),
+         Education = relevel(Education, ref = &quot;PhD&quot;))
+inter1 &lt;- lm(MntFishProducts ~ 0 + Age + Education + Marital_Status + Education*Marital_Status + Income + I(Income^2) + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response, data = marketing_ready)
+stargazer(inter1, type = &quot;text&quot;, no.space = TRUE, align = TRUE)</code></pre>
+<pre><code>## 
+## ======================================================================
+##                                                Dependent variable:    
+##                                            ---------------------------
+##                                                  MntFishProducts      
+## ----------------------------------------------------------------------
+## Age                                                   0.039           
+##                                                      (0.086)          
+## EducationPhD                                         -6.957           
+##                                                      (8.620)          
+## Education2n Cycle                                    13.651           
+##                                                      (8.828)          
+## EducationBasic                                      25.293**          
+##                                                     (11.293)          
+## EducationGraduation                                  11.571           
+##                                                      (7.983)          
+## EducationMaster                                      -4.701           
+##                                                      (8.700)          
+## Marital_StatusDivorced                              12.934**          
+##                                                      (6.465)          
+## Marital_StatusSingle                                 -1.338           
+##                                                      (5.135)          
+## Marital_StatusTogether                               -3.500           
+##                                                      (4.877)          
+## Marital_StatusWidow                                   3.553           
+##                                                      (8.950)          
+## Income                                              -0.00002          
+##                                                     (0.0002)          
+## I(Income2)                                         0.00000***         
+##                                                      (0.000)          
+## Kidhome                                            -12.360***         
+##                                                      (1.956)          
+## Teenhome                                           -18.226***         
+##                                                      (1.881)          
+## CountryCA                                            -0.148           
+##                                                      (4.149)          
+## CountryGER                                           -0.980           
+##                                                      (5.000)          
+## CountryIND                                            0.713           
+##                                                      (4.754)          
+## CountryME                                            32.870           
+##                                                     (24.019)          
+## CountrySA                                             3.831           
+##                                                      (3.979)          
+## CountrySP                                             0.773           
+##                                                      (3.512)          
+## CountryUS                                             1.292           
+##                                                      (5.138)          
+## AcceptedCmp11                                       15.009***         
+##                                                      (4.168)          
+## AcceptedCmp21                                        -11.646          
+##                                                      (8.192)          
+## AcceptedCmp31                                        -0.569           
+##                                                      (3.536)          
+## AcceptedCmp41                                      -19.617***         
+##                                                      (3.710)          
+## AcceptedCmp51                                      -28.824***         
+##                                                      (4.359)          
+## Response1                                             1.474           
+##                                                      (2.808)          
+## Education2n Cycle:Marital_StatusDivorced             -18.771          
+##                                                     (11.813)          
+## EducationBasic:Marital_StatusDivorced                -18.634          
+##                                                     (42.554)          
+## EducationGraduation:Marital_StatusDivorced         -20.065***         
+##                                                      (7.727)          
+## EducationMaster:Marital_StatusDivorced               -8.141           
+##                                                      (9.966)          
+## Education2n Cycle:Marital_StatusSingle               -8.880           
+##                                                      (9.695)          
+## EducationBasic:Marital_StatusSingle                  -8.365           
+##                                                     (14.306)          
+## EducationGraduation:Marital_StatusSingle              1.416           
+##                                                      (6.064)          
+## EducationMaster:Marital_StatusSingle                  9.494           
+##                                                      (7.798)          
+## Education2n Cycle:Marital_StatusTogether            28.614***         
+##                                                      (8.613)          
+## EducationBasic:Marital_StatusTogether                -13.129          
+##                                                     (15.114)          
+## EducationGraduation:Marital_StatusTogether            5.623           
+##                                                      (5.803)          
+## EducationMaster:Marital_StatusTogether               10.993           
+##                                                      (7.219)          
+## Education2n Cycle:Marital_StatusWidow               51.207**          
+##                                                     (20.899)          
+## EducationBasic:Marital_StatusWidow                   -4.079           
+##                                                     (43.011)          
+## EducationGraduation:Marital_StatusWidow              -1.078           
+##                                                     (11.450)          
+## EducationMaster:Marital_StatusWidow                 39.894***         
+##                                                     (15.243)          
+## ----------------------------------------------------------------------
+## Observations                                          2,220           
+## R2                                                    0.624           
+## Adjusted R2                                           0.616           
+## Residual Std. Error                            40.930 (df = 2177)     
+## F Statistic                                 83.899*** (df = 43; 2177) 
+## ======================================================================
+## Note:                                      *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>The results of the regression tell us that married PhD candidates only buy more fish than graduated divorced participants. Widow participants tend to spend more in fish products. In general, divorced participants buy more fish too. Kids and teens at home decrease the amount spent in fish. Those who accepted offer campaign 2 buy more fish. Accepting campaigns 4 and5 spend less in fish than those who did not accept these campaigns.</p>
+<p>To answer question 5, we can explore graphically the different campaigns.</p>
+<pre class="r"><code>par(mfrow = c(2,3))
+plot(marketing_ready$AcceptedCmp1 ~ marketing_ready$Country, main = &quot;Campaing 1&quot;, ylab = &quot;Accepted Offer&quot;, xlab = &quot;Country&quot;)
+plot(marketing_ready$AcceptedCmp2 ~ marketing_ready$Country, main = &quot;Campaing 2&quot;, ylab = NULL, xlab = &quot;Country&quot;)
+title(ylab = NULL)
+plot(marketing_ready$AcceptedCmp3 ~ marketing_ready$Country, main = &quot;Campaing 3&quot;, ylab = NULL, xlab = &quot;Country&quot;)
+plot(marketing_ready$AcceptedCmp4 ~ marketing_ready$Country, main = &quot;Campaing 4&quot;, ylab = &quot;Accepted Offer&quot;, xlab = &quot;Country&quot;)
+plot(marketing_ready$AcceptedCmp5 ~ marketing_ready$Country, main = &quot;Campaing 5&quot;, ylab = NULL, xlab = &quot;Country&quot;)
+plot(marketing_ready$Response ~ marketing_ready$Country, main = &quot;Last Campaign&quot;, ylab = NULL, xlab = &quot;Country&quot;)</code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-31-1.png" width="1440" /></p>
 </div>
 </div>
 </div>
