@@ -975,7 +975,7 @@ stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = &quot;text&q
   geom_boxplot(outlier.alpha = 0.5) +
   scale_x_continuous() +
   scale_fill_brewer(palette = &quot;Spectral&quot;)</code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-25-1.png" width="1440" /> Now we can see that the median of the US is higher than SP. ME is by far the country with more total purchases.</p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-25-1.png" width="1440" /> Now we can see that the median of the US is higher than Spain. Mexico is by far the country with more total purchases.</p>
 <pre class="r"><code>marketing_ready %&gt;% 
   group_by(Country) %&gt;% 
   mutate(mean_country = mean(total_purch)) %&gt;% 
@@ -1283,8 +1283,12 @@ amountspent</code></pre>
 amount %&gt;% 
   ggplot(aes(amount, product)) +
   geom_col(fill = c(&quot;#24B0B7&quot;, &quot;#39D97B&quot;, &quot;#825DE3&quot;, &quot;#DC8BE7&quot;, &quot;#F31E1E&quot;, &quot;#231985&quot;), alpha = 0.8) </code></pre>
-<p><img src="marketing_data_files/figure-html/unnamed-chunk-33-1.png" width="1440" /> Wines and meat are the channels that are sold the most.</p>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-33-1.png" width="1440" /> Wines and meat are the channels that are sold the most. On the other hand, sweets and fruits are sold the least. The products that are not performing that well might be put in a bundle/pack to increase the quantity sold.</p>
 </div>
+</div>
+<div id="section-04-cmo-recommendations" class="section level2">
+<h2>Section 04: CMO Recommendations</h2>
+<p>From this analysis, we can conclude that age, kids and teens at home, marketing campaign 1, 3, 5 and the last decrease the number of purchases in store. Whereas, income, campaigns 2 and 4, and products like meat, sweets and gold increase the purchases in store. For total purchases(i.e., the sum of amount spent on all goods) countries have no influence but marketing campaigns 3, 4 and last one affect significantly and positively the total amount spent per costumer in this company. Moreover, costumer who spent more than the average in gold also are more likely to buy in a store. However, married PhD costumer do not buy more fish. In fact, less educated consumers bought more. The 3rd, 4th and last campaign are the most successful ones as we found out before in the regression analysis. Creating bundles of products among those under-performing should increase the amount spent.</p>
 </div>
 </div>
 
