@@ -872,90 +872,91 @@ marketing_ready %&gt;%
 store_ols1 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, data = marketing_ready)
 store_ols2 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response, data = marketing_ready)
 store_ols3 &lt;- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, data = marketing_ready)
-store_negbin1 &lt;- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = &quot;poisson&quot;, data = marketing_ready)
+store_negbin1 &lt;- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = negative.binomial(theta = 1), data = marketing_ready)
 stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = &quot;text&quot;, align = TRUE, no.space = TRUE)</code></pre>
 <pre><code>## 
-## ================================================================================================================
-##                                                           Dependent variable:                                   
-##                        -----------------------------------------------------------------------------------------
-##                                                            NumStorePurchases                                    
-##                                                             OLS                                                Poisson         
-##                                   (1)                        (2)                       (3)               (4)    
-## ----------------------------------------------------------------------------------------------------------------
-## Age                             -0.011**                  -0.012**                  -0.010**           -0.001*  
-##                                 (0.005)                    (0.005)                   (0.005)           (0.001)  
-## EducationBasic                   0.048                      0.100                     0.062             -0.080  
-##                                 (0.361)                    (0.357)                   (0.358)           (0.089)  
-## EducationGraduation              -0.127                    -0.122                    -0.065             -0.016  
-##                                 (0.177)                    (0.175)                   (0.174)           (0.033)  
-## EducationMaster                  -0.075                    -0.062                     0.103             0.019   
-##                                 (0.204)                    (0.202)                   (0.202)           (0.038)  
-## EducationPhD                     -0.168                    -0.132                     0.161             0.029   
-##                                 (0.197)                    (0.195)                   (0.200)           (0.037)  
-## Marital_StatusMarried            0.165                      0.136                     0.163             0.033   
-##                                 (0.172)                    (0.171)                   (0.169)           (0.031)  
-## Marital_StatusSingle             -0.009                    -0.013                     0.025             0.003   
-##                                 (0.187)                    (0.184)                   (0.183)           (0.034)  
-## Marital_StatusTogether           0.043                     -0.014                     0.015             0.003   
-##                                 (0.180)                    (0.178)                   (0.177)           (0.033)  
-## Marital_StatusWidow              0.065                      0.090                     0.132             0.038   
-##                                 (0.305)                    (0.301)                   (0.299)           (0.053)  
-## Income                         0.0001***                  0.0001***                 0.0001***         0.00002***
-##                                (0.00000)                  (0.00000)                 (0.00000)         (0.00000) 
-## Kidhome                        -1.226***                  -1.196***                 -1.089***         -0.223*** 
-##                                 (0.109)                    (0.107)                   (0.108)           (0.022)  
-## Teenhome                         0.182*                     0.001                     0.110            0.061*** 
-##                                 (0.097)                    (0.099)                   (0.100)           (0.018)  
-## CountryCA                        0.162                      0.152                     0.114             0.009   
-##                                 (0.231)                    (0.228)                   (0.226)           (0.043)  
-## CountryGER                       0.240                      0.211                     0.228             0.036   
-##                                 (0.279)                    (0.275)                   (0.273)           (0.051)  
-## CountryIND                       0.152                      0.106                     0.151             0.011   
-##                                 (0.265)                    (0.262)                   (0.259)           (0.050)  
-## CountryME                        -0.338                    -0.015                    -0.081             0.027   
-##                                 (1.340)                    (1.326)                   (1.315)           (0.234)  
-## CountrySA                        0.327                      0.302                     0.288             0.045   
-##                                 (0.222)                    (0.219)                   (0.217)           (0.041)  
-## CountrySP                        0.261                      0.278                     0.273             0.040   
-##                                 (0.195)                    (0.193)                   (0.192)           (0.036)  
-## CountryUS                        0.426                      0.401                     0.346             0.068   
-##                                 (0.287)                    (0.283)                   (0.281)           (0.052)  
-## AcceptedCmp11                                             -0.493**                  -0.446**           -0.069*  
-##                                                            (0.227)                   (0.226)           (0.036)  
-## AcceptedCmp21                                               0.652                    0.871*             0.137*  
-##                                                            (0.451)                   (0.448)           (0.072)  
-## AcceptedCmp31                                             -0.472**                  -0.416**           -0.080** 
-##                                                            (0.194)                   (0.193)           (0.038)  
-## AcceptedCmp41                                              0.384*                   0.573***           0.088*** 
-##                                                            (0.205)                   (0.205)           (0.034)  
-## AcceptedCmp51                                             -0.886***                 -0.877***         -0.156*** 
-##                                                            (0.230)                   (0.228)           (0.036)  
-## Response1                                                 -0.527***                 -0.612***         -0.105*** 
-##                                                            (0.154)                   (0.153)           (0.028)  
-## wine1                                                                                 0.326             0.163   
-##                                                                                      (0.673)           (0.185)  
-## fruits1                                                                               0.180             0.029   
-##                                                                                      (0.144)           (0.029)  
-## meat1                                                                                 0.248             0.245   
-##                                                                                      (2.348)           (0.732)  
-## fish1                                                                                0.336**           0.064**  
-##                                                                                      (0.147)           (0.030)  
-## sweet1                                                                              0.650***           0.123*** 
-##                                                                                      (0.142)           (0.028)  
-## gold1                                                                                 0.425             0.079   
-##                                                                                      (0.297)           (0.059)  
-## Constant                        1.836***                  1.776***                   -0.339             0.260   
-##                                 (0.404)                    (0.402)                   (2.285)           (0.712)  
-## ----------------------------------------------------------------------------------------------------------------
-## Observations                     2,220                      2,220                     2,220             2,220   
-## R2                               0.502                      0.516                     0.527                     
-## Adjusted R2                      0.497                      0.510                     0.520                     
-## Log Likelihood                                                                                        -4,702.180
-## Akaike Inf. Crit.                                                                                     9,468.359 
-## Residual Std. Error        2.293 (df = 2200)          2.263 (df = 2194)         2.241 (df = 2188)               
-## F Statistic            116.601*** (df = 19; 2200) 93.464*** (df = 25; 2194) 78.542*** (df = 31; 2188)           
-## ================================================================================================================
-## Note:                                                                                *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+## ===============================================================================================================================
+##                                                                  Dependent variable:                                           
+##                        --------------------------------------------------------------------------------------------------------
+##                                                                   NumStorePurchases                                            
+##                                                             OLS                                       glm: Negative Binomial(1)
+##                                                                                                              link = log        
+##                                   (1)                        (2)                       (3)                       (4)           
+## -------------------------------------------------------------------------------------------------------------------------------
+## Age                             -0.011**                  -0.012**                  -0.010**                   -0.001*         
+##                                 (0.005)                    (0.005)                   (0.005)                   (0.001)         
+## EducationBasic                   0.048                      0.100                     0.062                    -0.032          
+##                                 (0.361)                    (0.357)                   (0.358)                   (0.061)         
+## EducationGraduation              -0.127                    -0.122                    -0.065                    -0.016          
+##                                 (0.177)                    (0.175)                   (0.174)                   (0.029)         
+## EducationMaster                  -0.075                    -0.062                     0.103                     0.022          
+##                                 (0.204)                    (0.202)                   (0.202)                   (0.033)         
+## EducationPhD                     -0.168                    -0.132                     0.161                     0.033          
+##                                 (0.197)                    (0.195)                   (0.200)                   (0.033)         
+## Marital_StatusMarried            0.165                      0.136                     0.163                    0.047*          
+##                                 (0.172)                    (0.171)                   (0.169)                   (0.028)         
+## Marital_StatusSingle             -0.009                    -0.013                     0.025                     0.011          
+##                                 (0.187)                    (0.184)                   (0.183)                   (0.030)         
+## Marital_StatusTogether           0.043                     -0.014                     0.015                     0.016          
+##                                 (0.180)                    (0.178)                   (0.177)                   (0.029)         
+## Marital_StatusWidow              0.065                      0.090                     0.132                     0.063          
+##                                 (0.305)                    (0.301)                   (0.299)                   (0.048)         
+## Income                         0.0001***                  0.0001***                 0.0001***                0.00002***        
+##                                (0.00000)                  (0.00000)                 (0.00000)                 (0.00000)        
+## Kidhome                        -1.226***                  -1.196***                 -1.089***                 -0.205***        
+##                                 (0.109)                    (0.107)                   (0.108)                   (0.018)         
+## Teenhome                         0.182*                     0.001                     0.110                   0.048***         
+##                                 (0.097)                    (0.099)                   (0.100)                   (0.016)         
+## CountryCA                        0.162                      0.152                     0.114                     0.016          
+##                                 (0.231)                    (0.228)                   (0.226)                   (0.037)         
+## CountryGER                       0.240                      0.211                     0.228                     0.031          
+##                                 (0.279)                    (0.275)                   (0.273)                   (0.044)         
+## CountryIND                       0.152                      0.106                     0.151                     0.021          
+##                                 (0.265)                    (0.262)                   (0.259)                   (0.043)         
+## CountryME                        -0.338                    -0.015                    -0.081                     0.081          
+##                                 (1.340)                    (1.326)                   (1.315)                   (0.210)         
+## CountrySA                        0.327                      0.302                     0.288                     0.049          
+##                                 (0.222)                    (0.219)                   (0.217)                   (0.036)         
+## CountrySP                        0.261                      0.278                     0.273                     0.037          
+##                                 (0.195)                    (0.193)                   (0.192)                   (0.031)         
+## CountryUS                        0.426                      0.401                     0.346                     0.054          
+##                                 (0.287)                    (0.283)                   (0.281)                   (0.046)         
+## AcceptedCmp11                                             -0.493**                  -0.446**                  -0.071**         
+##                                                            (0.227)                   (0.226)                   (0.036)         
+## AcceptedCmp21                                               0.652                    0.871*                    0.182**         
+##                                                            (0.451)                   (0.448)                   (0.071)         
+## AcceptedCmp31                                             -0.472**                  -0.416**                  -0.114***        
+##                                                            (0.194)                   (0.193)                   (0.032)         
+## AcceptedCmp41                                              0.384*                   0.573***                  0.116***         
+##                                                            (0.205)                   (0.205)                   (0.033)         
+## AcceptedCmp51                                             -0.886***                 -0.877***                 -0.178***        
+##                                                            (0.230)                   (0.228)                   (0.036)         
+## Response1                                                 -0.527***                 -0.612***                 -0.076***        
+##                                                            (0.154)                   (0.153)                   (0.025)         
+## wine1                                                                                 0.326                     0.116          
+##                                                                                      (0.673)                   (0.118)         
+## fruits1                                                                               0.180                    0.043*          
+##                                                                                      (0.144)                   (0.024)         
+## meat1                                                                                 0.248                     0.203          
+##                                                                                      (2.348)                   (0.426)         
+## fish1                                                                                0.336**                  0.075***         
+##                                                                                      (0.147)                   (0.024)         
+## sweet1                                                                              0.650***                  0.129***         
+##                                                                                      (0.142)                   (0.023)         
+## gold1                                                                                 0.425                    0.090*          
+##                                                                                      (0.297)                   (0.049)         
+## Constant                        1.836***                  1.776***                   -0.339                     0.215          
+##                                 (0.404)                    (0.402)                   (2.285)                   (0.415)         
+## -------------------------------------------------------------------------------------------------------------------------------
+## Observations                     2,220                      2,220                     2,220                     2,220          
+## R2                               0.502                      0.516                     0.527                                    
+## Adjusted R2                      0.497                      0.510                     0.520                                    
+## Log Likelihood                                                                                               -6,128.878        
+## Akaike Inf. Crit.                                                                                            12,321.760        
+## Residual Std. Error        2.293 (df = 2200)          2.263 (df = 2194)         2.241 (df = 2188)                              
+## F Statistic            116.601*** (df = 19; 2200) 93.464*** (df = 25; 2194) 78.542*** (df = 31; 2188)                          
+## ===============================================================================================================================
+## Note:                                                                                               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>The OLS models hint us that the factors driven store purchases are kids and teenagers at home, income, the offer accepted at the moment of the purchase and the product that the costumer buys. The count model confirms these findings. It seems that the second and fourth offer affects positively purchasing in stores. Fish and sweets are the products that also contributes to more purchases. Income follows the same pattern, and surprisingly age contributes negatively to store purchases.</p>
 <p>To answer question 2, lets plot a graph to observe how the country contribution to total purchases.</p>
 <pre class="r"><code>marketing_ready %&gt;% 
@@ -1243,6 +1244,28 @@ plot(marketing_ready$AcceptedCmp4 ~ marketing_ready$Country, main = &quot;Campai
 plot(marketing_ready$AcceptedCmp5 ~ marketing_ready$Country, main = &quot;Campaing 5&quot;, ylab = NULL, xlab = &quot;Country&quot;)
 plot(marketing_ready$Response ~ marketing_ready$Country, main = &quot;Last Campaign&quot;, ylab = NULL, xlab = &quot;Country&quot;)</code></pre>
 <p><img src="marketing_data_files/figure-html/unnamed-chunk-31-1.png" width="1440" /></p>
+<pre class="r"><code>marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp1 == 1, &quot;1st&quot;, 0)
+marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp2 == 1, &quot;2nd&quot;, marketing_ready$offers)
+marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp3 == 1, &quot;3rd&quot;, marketing_ready$offers)
+marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp4 == 1, &quot;4th&quot;, marketing_ready$offers)
+marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp5 == 1, &quot;5th&quot;, marketing_ready$offers)
+marketing_ready$offers &lt;- ifelse(marketing_ready$Response == 1, &quot;Last&quot;, marketing_ready$offers)
+marketing_ready %&gt;% 
+  filter(offers != 0) %&gt;% 
+  ggplot(aes(offers)) +
+  geom_bar(fill = c(&quot;#24B0B7&quot;, &quot;#39D97B&quot;, &quot;#825DE3&quot;, &quot;#DC8BE7&quot;, &quot;#F31E1E&quot;), alpha = 0.8) </code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-32-1.png" width="1440" /> From the campaigns, the last one is the most successful one. Almost three times what others campaigns did. The company could apply another similar campaign to even increase the acceptance rate.</p>
+<pre class="r"><code>amountspent &lt;- marketing %&gt;% 
+    dplyr::select(MntWines, MntFruits, MntMeatProducts, MntFishProducts, MntSweetProducts, MntGoldProds) %&gt;%
+    mutate(Wines = sum(MntWines),
+         Fruits = sum(MntFruits),
+         Meat = sum(MntMeatProducts),
+         Fish = sum(MntFishProducts),
+         Sweet = sum(MntSweetProducts),
+         Gold = sum(MntGoldProds)) %&gt;% 
+  dplyr::select(Wines, Fruits, Meat, Fish, Sweet, Gold) 
+
+  amountspent &lt;- unique(amountspent)</code></pre>
 </div>
 </div>
 </div>

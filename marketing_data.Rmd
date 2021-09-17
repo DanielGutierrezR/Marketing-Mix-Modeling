@@ -290,7 +290,7 @@ marketing_ready <- marketing_ready %>%
 store_ols1 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country, data = marketing_ready)
 store_ols2 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response, data = marketing_ready)
 store_ols3 <- lm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, data = marketing_ready)
-store_negbin1 <- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = "poisson", data = marketing_ready)
+store_negbin1 <- glm(NumStorePurchases ~ Age + Education + Marital_Status + Income + Kidhome + Teenhome + Country + AcceptedCmp1 + AcceptedCmp2 + AcceptedCmp3 + AcceptedCmp4 + AcceptedCmp5 + Response + wine + fruits + meat + fish + sweet + gold, family = negative.binomial(theta = 1), data = marketing_ready)
 stargazer(store_ols1, store_ols2, store_ols3, store_negbin1, type = "text", align = TRUE, no.space = TRUE)
 ```
 The OLS models hint us that the factors driven store purchases are kids and teenagers at home, income, the offer accepted at the moment of the purchase and the product that the costumer buys. The count model confirms these findings. It seems that the second and fourth offer affects positively purchasing in stores. Fish and sweets are the products that also contributes to more purchases. Income follows the same pattern, and surprisingly age contributes negatively to store purchases. 
@@ -376,5 +376,33 @@ plot(marketing_ready$AcceptedCmp3 ~ marketing_ready$Country, main = "Campaing 3"
 plot(marketing_ready$AcceptedCmp4 ~ marketing_ready$Country, main = "Campaing 4", ylab = "Accepted Offer", xlab = "Country")
 plot(marketing_ready$AcceptedCmp5 ~ marketing_ready$Country, main = "Campaing 5", ylab = NULL, xlab = "Country")
 plot(marketing_ready$Response ~ marketing_ready$Country, main = "Last Campaign", ylab = NULL, xlab = "Country")
+```
+```{r}
+marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp1 == 1, "1st", 0)
+marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp2 == 1, "2nd", marketing_ready$offers)
+marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp3 == 1, "3rd", marketing_ready$offers)
+marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp4 == 1, "4th", marketing_ready$offers)
+marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp5 == 1, "5th", marketing_ready$offers)
+marketing_ready$offers <- ifelse(marketing_ready$Response == 1, "Last", marketing_ready$offers)
+marketing_ready %>% 
+  filter(offers != 0) %>% 
+  ggplot(aes(offers)) +
+  geom_bar(fill = c("#24B0B7", "#39D97B", "#825DE3", "#DC8BE7", "#F31E1E"), alpha = 0.8) 
+```
+From the campaigns, the last one is the most successful one. Almost three times what others campaigns did. The company could apply another similar campaign to even increase the acceptance rate. 
+
+```{r}
+amountspent <- marketing %>% 
+    dplyr::select(MntWines, MntFruits, MntMeatProducts, MntFishProducts, MntSweetProducts, MntGoldProds) %>%
+    mutate(Wines = sum(MntWines),
+         Fruits = sum(MntFruits),
+         Meat = sum(MntMeatProducts),
+         Fish = sum(MntFishProducts),
+         Sweet = sum(MntSweetProducts),
+         Gold = sum(MntGoldProds)) %>% 
+  dplyr::select(Wines, Fruits, Meat, Fish, Sweet, Gold) 
+
+  amountspent <- unique(amountspent)
+
 ```
 
