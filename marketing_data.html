@@ -1245,15 +1245,23 @@ plot(marketing_ready$AcceptedCmp5 ~ marketing_ready$Country, main = &quot;Campai
 plot(marketing_ready$Response ~ marketing_ready$Country, main = &quot;Last Campaign&quot;, ylab = NULL, xlab = &quot;Country&quot;)</code></pre>
 <p><img src="marketing_data_files/figure-html/unnamed-chunk-31-1.png" width="1440" /></p>
 <pre class="r"><code>marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp1 == 1, &quot;1st&quot;, 0)
+
 marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp2 == 1, &quot;2nd&quot;, marketing_ready$offers)
+
 marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp3 == 1, &quot;3rd&quot;, marketing_ready$offers)
+
 marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp4 == 1, &quot;4th&quot;, marketing_ready$offers)
+
 marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp5 == 1, &quot;5th&quot;, marketing_ready$offers)
+
 marketing_ready$offers &lt;- ifelse(marketing_ready$Response == 1, &quot;Last&quot;, marketing_ready$offers)
+
+marketing_ready$offers &lt;- ifelse(marketing_ready$AcceptedCmp2 == 1, &quot;2nd&quot;, marketing_ready$offers)
+
 marketing_ready %&gt;% 
   filter(offers != 0) %&gt;% 
   ggplot(aes(offers)) +
-  geom_bar(fill = c(&quot;#24B0B7&quot;, &quot;#39D97B&quot;, &quot;#825DE3&quot;, &quot;#DC8BE7&quot;, &quot;#F31E1E&quot;), alpha = 0.8) </code></pre>
+  geom_bar(fill = c(&quot;#24B0B7&quot;, &quot;#39D97B&quot;, &quot;#825DE3&quot;, &quot;#DC8BE7&quot;, &quot;#F31E1E&quot;, &quot;#231985&quot;), alpha = 0.8) </code></pre>
 <p><img src="marketing_data_files/figure-html/unnamed-chunk-32-1.png" width="1440" /> From the campaigns, the last one is the most successful one. Almost three times what others campaigns did. The company could apply another similar campaign to even increase the acceptance rate.</p>
 <pre class="r"><code>amountspent &lt;- marketing %&gt;% 
     dplyr::select(MntWines, MntFruits, MntMeatProducts, MntFishProducts, MntSweetProducts, MntGoldProds) %&gt;%
@@ -1265,7 +1273,17 @@ marketing_ready %&gt;%
          Gold = sum(MntGoldProds)) %&gt;% 
   dplyr::select(Wines, Fruits, Meat, Fish, Sweet, Gold) 
 
-  amountspent &lt;- unique(amountspent)</code></pre>
+  amountspent &lt;- unique(amountspent)
+amountspent</code></pre>
+<pre><code>## # A tibble: 1 x 6
+##    Wines Fruits   Meat  Fish Sweet  Gold
+##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 680816  58917 373968 84057 60621 98609</code></pre>
+<pre class="r"><code>amount &lt;- data.frame(product = c(&quot;Wines&quot;, &quot;Fruits&quot;, &quot;Meat&quot;, &quot;Fish&quot;, &quot;Sweet&quot;, &quot;Gold&quot;), amount = c(680816, 58917, 373968, 84057, 60621, 98609))
+amount %&gt;% 
+  ggplot(aes(amount, product)) +
+  geom_col(fill = c(&quot;#24B0B7&quot;, &quot;#39D97B&quot;, &quot;#825DE3&quot;, &quot;#DC8BE7&quot;, &quot;#F31E1E&quot;, &quot;#231985&quot;), alpha = 0.8) </code></pre>
+<p><img src="marketing_data_files/figure-html/unnamed-chunk-33-1.png" width="1440" /> Wines and meat are the channels that are sold the most.</p>
 </div>
 </div>
 </div>

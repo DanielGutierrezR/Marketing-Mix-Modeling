@@ -379,15 +379,23 @@ plot(marketing_ready$Response ~ marketing_ready$Country, main = "Last Campaign",
 ```
 ```{r}
 marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp1 == 1, "1st", 0)
+
 marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp2 == 1, "2nd", marketing_ready$offers)
+
 marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp3 == 1, "3rd", marketing_ready$offers)
+
 marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp4 == 1, "4th", marketing_ready$offers)
+
 marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp5 == 1, "5th", marketing_ready$offers)
+
 marketing_ready$offers <- ifelse(marketing_ready$Response == 1, "Last", marketing_ready$offers)
+
+marketing_ready$offers <- ifelse(marketing_ready$AcceptedCmp2 == 1, "2nd", marketing_ready$offers)
+
 marketing_ready %>% 
   filter(offers != 0) %>% 
   ggplot(aes(offers)) +
-  geom_bar(fill = c("#24B0B7", "#39D97B", "#825DE3", "#DC8BE7", "#F31E1E"), alpha = 0.8) 
+  geom_bar(fill = c("#24B0B7", "#39D97B", "#825DE3", "#DC8BE7", "#F31E1E", "#231985"), alpha = 0.8) 
 ```
 From the campaigns, the last one is the most successful one. Almost three times what others campaigns did. The company could apply another similar campaign to even increase the acceptance rate. 
 
@@ -403,6 +411,10 @@ amountspent <- marketing %>%
   dplyr::select(Wines, Fruits, Meat, Fish, Sweet, Gold) 
 
   amountspent <- unique(amountspent)
-
+amountspent
+amount <- data.frame(product = c("Wines", "Fruits", "Meat", "Fish", "Sweet", "Gold"), amount = c(680816, 58917, 373968, 84057, 60621, 98609))
+amount %>% 
+  ggplot(aes(amount, product)) +
+  geom_col(fill = c("#24B0B7", "#39D97B", "#825DE3", "#DC8BE7", "#F31E1E", "#231985"), alpha = 0.8) 
 ```
-
+Wines and meat are the channels that are sold the most. 
